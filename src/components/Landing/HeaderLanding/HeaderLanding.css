@@ -1,0 +1,51 @@
+.header-landing {
+  background-color: rgba(7, 48, 66, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.header-landing__container {
+  padding: 70px 0 30px;
+  display: grid;
+  justify-items: center
+}
+
+.header-landing__logo {
+  width: 210px;
+  height: 206px;
+}
+
+.header-landing__text {
+  margin: 44px 0 80px;
+}
+
+.header-landing__text-title {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 38px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-block: 0;
+  margin-inline: 0;
+}
+
+.header-landing__text-subtitle {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  margin-block: 0;
+  margin-inline: 0;
+  margin-top: 24px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+.header-landing__button {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-radius: 3px;
+}

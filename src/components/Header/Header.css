@@ -3,13 +3,24 @@
   justify-content: space-between;
   align-items: center;
   min-width: 320px;
-  padding: 0 14px;
 }
 
 .header__logo {
   width: 38px;
   height: 38px;
-  margin: 18px 0;
+  margin: 18px 0 18px 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .header__logo {
+    margin: 18px 0 18px 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header__logo {
+    margin: 18px 0 18px 70px;
+  }
 }
 
 .header__landing {
