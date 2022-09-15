@@ -10,13 +10,11 @@
   height: 38px;
   margin: 18px 0 18px 14px;
 }
-
 @media screen and (min-width: 768px) {
   .header__logo {
     margin: 18px 0 18px 30px;
   }
 }
-
 @media screen and (min-width: 1024px) {
   .header__logo {
     margin: 18px 0 18px 70px;
@@ -24,5 +22,5 @@
 }
 
 .header__landing {
-  background-color: #073042;
+  background-color: rgba(7, 48, 66, 1);
 }

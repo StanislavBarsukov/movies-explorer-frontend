@@ -1,0 +1,130 @@
+.techs {
+  padding: 70px 18px;
+}
+@media screen and (min-width: 768px) {
+  .techs {
+    background-color: rgba(245, 245, 245, 1);
+    padding: 90px 50px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .techs {
+    padding: 100px 70px;
+  }
+}
+
+.techs__title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  padding-bottom: 28px;
+  width: 100%;
+  margin-block: 0;
+  margin-inline: 0;
+}
+@media screen and (min-width: 768px) {
+  .techs__title {
+    font-size: 22px;
+    line-height: 27px;
+    padding-bottom: 23px;
+  }
+}
+
+.techs__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0 50px;
+}
+@media screen and (min-width: 768px) {
+  .techs__text {
+    padding: 80px 0 83px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .techs__text {
+    padding: 90px 0 100px;
+  }
+}
+
+.techs__text-title {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-block: 0;
+  margin-inline: 0;
+  width: 292px;
+}
+@media screen and (min-width: 768px) {
+  .techs__text-title {
+    font-size: 50px;
+    line-height: 58px;
+    width: 600px;
+  }
+}
+
+.techs__text-subtitle {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-block: 0;
+  margin-inline: 0;
+  width: 292px;
+  margin-top: 24px;
+}
+@media screen and (min-width: 768px) {
+  .techs__text-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    width: 460px;
+    margin-top: 22px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .techs__text-subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 26px;
+  }
+}
+
+.techs__list {
+  margin-block: 0;
+  margin-inline: 0;
+  padding-inline: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 10px 10px;
+  justify-content: center;
+}
+@media screen and (min-width: 768px) {
+  .techs__list {
+    grid-template-columns: repeat(7, max-content);
+    gap: 0 10px;
+  }
+}
+
+.techs__list-item {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  border-radius: 10px;
+  background-color: rgba(232, 232, 232, 1);
+  padding: 21px 0;
+  width: 84px;
+}
+@media screen and (min-width: 1024px) {
+  .techs__list-item {
+    width: 90px;
+    padding: 21px 0 22px;
+  }
+}
