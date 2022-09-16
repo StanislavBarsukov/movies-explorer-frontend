@@ -6,6 +6,7 @@ import AboutProject from '../AboutProject/AboutProject';
 import HeaderLanding from '../HeaderLanding/HeaderLanding';
 import Techs from '../Techs/Techs';
 import Profile from '../Profile/Profile';
+import Portfolio from '../Portfolio/Portfolio';
 function Landing () {
   return(
     <main>
@@ -14,6 +15,7 @@ function Landing () {
       <AboutProject/>
       <Techs/>
       <Profile/>
+      <Portfolio/>
       <Footer/>
     </main>
   );
