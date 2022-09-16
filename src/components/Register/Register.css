@@ -40,16 +40,11 @@
   font-size: 10px;
   line-height: 12px;
   color: rgba(255, 48, 85, 1);
-}
-.register__error:last-of-type {
   margin-bottom: 157px;
 }
+
 @media screen and (min-width: 768px) {
-  .register__error:last-of-type{
+  .register__error {
     margin-bottom: 69px;
   }
-}
-
-.register__error_active {
-  margin: 10px 0 10px;
 }

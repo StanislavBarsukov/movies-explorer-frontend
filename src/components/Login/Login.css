@@ -20,6 +20,13 @@
 .login__input:last-of-type {
   margin-bottom: 0;
 }
+.login__input::placeholder {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(160, 160, 160, 1);
+
+}
 
 .login__error {
   margin-top: 10px;
@@ -28,17 +35,11 @@
   font-size: 10px;
   line-height: 12px;
   color: rgba(255, 48, 85, 1);
-}
-
-.login__error:last-of-type {
   margin-bottom: 257px;
 }
 @media screen and (min-width: 768px) {
-  .login__error:last-of-type{
+  .login__error {
     margin-bottom: 169px;
   }
 }
 
-.login__error_active {
-  margin: 10px 0 10px;
-}

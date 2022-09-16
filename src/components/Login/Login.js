@@ -18,7 +18,6 @@ function Login() {
           placeholder="Email"
           required={true}
         />
-        <span className="login__error"></span>
         <label className="login__label">Пароль</label>
         <input
           className="login__input"

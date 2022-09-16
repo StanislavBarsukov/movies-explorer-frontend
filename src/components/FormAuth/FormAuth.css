@@ -32,8 +32,11 @@
   width: 38px;
   height: 38px;
   box-sizing: border-box;
+  transition: opacity ease-in-out 0.5s;
 }
-
+.form-auth__logo:hover {
+  opacity: 0.8;
+}
 .form-auth__title {
   font-weight: 500;
   font-size: 24px;
@@ -61,6 +64,7 @@
 }
 
 .form-auth__button {
+  cursor: pointer;
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
@@ -72,6 +76,10 @@
   width: 260px;
   height: 45px;
   margin-bottom: 14px;
+  transition: opacity ease-in-out 0.5s;
+}
+.form-auth__button:hover {
+  opacity: 0.8;
 }
 @media screen and (min-width: 768px) {
   .form-auth__button {
@@ -105,6 +113,10 @@
   line-height: 15px;
   text-align: center;
   margin-left: 7px;
+  transition: opacity ease-in-out 0.5s;
+}
+.form-auth__link:hover {
+  opacity: 0.7;
 }
 @media screen and (min-width: 768px) {
   .form-auth__link {
