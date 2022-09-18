@@ -1,19 +1,19 @@
-.profile {
+.about-me {
   padding: 70px 14px;
 }
 @media screen and (min-width: 768px) {
-  .profile {
+  .about-me {
     padding: 90px 50px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .profile {
+  .about-me {
     padding: 110px 70px 100px;
   }
 }
 
-.profile__title {
+.about-me__title {
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
@@ -24,18 +24,18 @@
   margin-inline: 0;
 }
 @media screen and (min-width: 768px) {
-  .profile__title {
+  .about-me__title {
     font-size: 22px;
     line-height: 27px;
     padding-bottom: 23px;
   }
 }
 
-.profile__container {
-  margin-top: 40px;
+.about-me__container {
+  margin-top: 60px;
 }
 @media screen and (min-width: 768px) {
-  .profile__container {
+  .about-me__container {
     margin-top: 66px;
     display: flex;
     flex-direction: row-reverse;
@@ -44,17 +44,17 @@
   }
 }
 @media screen and (min-width: 1024px) {
-  .profile__container {
+  .about-me__container {
     column-gap: 120px;
   }
 }
 @media screen and (min-width: 1200px) {
-  .profile__container {
+  .about-me__container {
     column-gap: 270px;
   }
 }
 
-.profile__img {
+.about-me__img {
   width: 292px;
   height: 352px;
   object-fit: cover;
@@ -63,23 +63,23 @@
   border-radius: 10px;
 }
 @media screen and (min-width: 768px) {
-  .profile__img {
+  .about-me__img {
     width: 255px;
     height: 307px;
   }
 }
-
 @media screen and (min-width: 768px) {
-  .profile__img {
+  .about-me__img {
     width: 270px;
     height: 327px;
   }
 }
 
-.profile__about {
+.about-me__about {
+
 }
 
-.profile__about-title {
+.about-me__about-title {
   font-weight: 400;
   font-size: 30px;
   line-height: 36px;
@@ -89,21 +89,21 @@
   padding-bottom: 20px;
 }
 @media screen and (min-width: 768px) {
-  .profile__about-title {
+  .about-me__about-title {
     font-size: 40px;
     line-height: 40px;
     padding-bottom: 16px;
   }
 }
 @media screen and (min-width: 1024px) {
-  .profile__about-title {
+  .about-me__about-title {
     font-size: 50px;
     line-height: 58px;
     padding-bottom: 18px;
   }
 }
 
-.profile__about-subtitle {
+.about-me__about-subtitle {
   font-weight: 500;
   font-size: 11px;
   line-height: 16px;
@@ -112,20 +112,20 @@
   padding-bottom: 20px;
 }
 @media screen and (min-width: 768px) {
-  .profile__about-subtitle {
+  .about-me__about-subtitle {
     font-size: 12px;
     line-height: 18px;
   }
 }
 @media screen and (min-width: 1024px) {
-  .profile__about-subtitle {
+  .about-me__about-subtitle {
     font-size: 18px;
     line-height: 20px;
     padding-bottom: 26px;
   }
 }
 
-.profile__about-text {
+.about-me__about-text {
   font-weight: 400;
   font-size: 11px;
   line-height: 16px;
@@ -134,21 +134,21 @@
   padding-bottom: 40px;
 }
 @media screen and (min-width: 768px) {
-  .profile__about-text {
+  .about-me__about-text {
     font-size: 12px;
     line-height: 18px;
     padding-bottom: 87px;
   }
 }
 @media screen and (min-width: 768px) {
-  .profile__about-text {
+  .about-me__about-text {
     font-size: 14px;
     line-height: 22px;
     padding-bottom: 99px;
   }
 }
 
-.profile__about-link {
+.about-me__about-link {
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -156,6 +156,6 @@
   color: rgba(0, 0, 0, 1);
   transition: opacity ease-in-out 0.5s;
 }
-.profile__about-link:hover {
+.about-me__about-link:hover {
   opacity: 0.7;
 }

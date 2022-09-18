@@ -14,7 +14,6 @@
   transition: visibility 0.3s, opacity 0.3s linear;
   width: 100%;
   height: 100%;
-
 }
 
 .nav_active {
@@ -30,7 +29,7 @@
   align-items: center;
   padding: 144px 0 46px;
 }
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .nav__container  {
     max-width: 520px;
     margin-left: auto;
@@ -60,6 +59,7 @@
   height: 43px;
   padding: 0;
 }
+
 .nav__button-close {
   background-image: url(../../images/button-nav.svg);
   background-color: transparent;
