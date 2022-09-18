@@ -3,11 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 import Logo from '../../images/logo.svg';
 import Auth from '../Auth/Auth';
+import Navigation from '../Navigation/Navigation';
 
 function Header() {
-  const location = useLocation();
+  const location = useLocation().pathname;
   return (
-    <header className={`${ location.pathname === "" ? "header" : " header header__landing"}`}>
+    <header className={`${ location === "/" ?  "header header__landing" : "header"}` }>
       <Link  to="/">
         <img
           className="header__logo"
@@ -15,7 +16,8 @@ function Header() {
           alt="Круглый логоти с буквой внутри"
         />
       </Link>
-      <Auth/>
+      { location === "/" && (<Auth/>)}
+      { location === "/profile" && ( <Navigation/>)}
     </header>
   );
 }

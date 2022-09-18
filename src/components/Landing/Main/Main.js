@@ -1,24 +1,25 @@
 import React from 'react';
-import './Landing.css';
+import './Main.css';
 import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
 import AboutProject from '../AboutProject/AboutProject';
 import HeaderLanding from '../HeaderLanding/HeaderLanding';
 import Techs from '../Techs/Techs';
-import Profile from '../Profile/Profile';
+import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
-function Landing () {
+
+function Main () {
   return(
     <main>
       <Header/>
       <HeaderLanding/>
       <AboutProject/>
       <Techs/>
-      <Profile/>
+      <AboutMe/>
       <Portfolio/>
       <Footer/>
     </main>
   );
 }
 
-export default Landing;
+export default Main;

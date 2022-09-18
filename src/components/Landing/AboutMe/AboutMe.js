@@ -1,7 +1,8 @@
 import React from 'react';
-import './Profile.css';
+import './AboutMe.css';
 import Img from '../../../images/profile-img.jpg';
-function Profile() {
+
+function AboutMe() {
   return (
     <section className="profile">
       <h2 className="profile__title">Студент</h2>
@@ -21,11 +22,11 @@ function Profile() {
             После того, как прошёл курс по&nbsp;веб-разработке, начал заниматься фриланс-заказами
             и&nbsp;ушёл с&nbsp;постоянной работы.
           </p>
-          <a className="profile__about-link" href="https://github.com/StanislavBarsukov">Github</a>
+          <a className="profile__about-link" target="_blanck" href="https://github.com/StanislavBarsukov">Github</a>
         </div>
       </div>
     </section>
   );
 }
 
-export default Profile;
+export default AboutMe;

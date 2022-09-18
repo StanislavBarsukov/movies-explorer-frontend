@@ -9,7 +9,7 @@ function Portfolio() {
         <li className="portfolio__list-item">
           <a
             className="portfolio__link"
-            href="https://stanislavbarsukov.github.io/travels/"
+            href="https://stanislavbarsukov.github.io/how-to-learn/"
             target="_blanck"
           >Статичный сайт
           </a>

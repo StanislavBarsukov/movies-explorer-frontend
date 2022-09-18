@@ -1,0 +1,107 @@
+.nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: visibility 0.3s, opacity 0.3s linear;
+  width: 100%;
+  height: 100%;
+
+}
+
+.nav_active {
+  visibility: visible;
+  opacity: 1;
+}
+.nav__container {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 144px 0 46px;
+}
+@media screen and (min-width: 768px) {
+  .nav__container  {
+    max-width: 520px;
+    margin-left: auto;
+    padding: 159px 0 90px;
+  }
+}
+
+.nav__links {
+  display: grid;
+  justify-items: center;
+  row-gap: 24px;
+}
+@media screen and (min-width: 768px) {
+  .nav__links {
+    row-gap: 28px;
+  }
+}
+
+.nav__button-open {
+  background-image: url(../../images/icon-burger.svg);
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: none;
+  width: 40px;
+  height: 43px;
+  padding: 0;
+}
+.nav__button-close {
+  background-image: url(../../images/button-nav.svg);
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  position: absolute;
+  border: none;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  top: 14px;
+  right: 14px;
+
+}
+
+.nav__link {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 1);
+}
+
+.nav__link:hover {
+  text-decoration: underline;
+  opacity: 0.7;
+}
+
+.nav__link-profile {
+  margin-top: 444px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 1);
+  background-color: rgba(249, 249, 249, 1);
+  border-radius: 20px;
+  padding: 8px 20px;
+}
+@media screen and (min-width: 768px) {
+  .nav__link-profile {
+    margin-top: 621px;
+  }
+}
