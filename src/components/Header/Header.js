@@ -18,6 +18,7 @@ function Header() {
       </Link>
       { location === "/" && (<Auth/>)}
       { location === "/profile" && ( <Navigation/>)}
+      { location === "/movies" && ( <Navigation/>)}
     </header>
   );
 }

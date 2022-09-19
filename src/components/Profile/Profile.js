@@ -2,7 +2,10 @@ import React from 'react';
 import './Profile.css';
 import Header from "../Header/Header";
 
-function Profile() {
+function Profile({}) {
+  const [ isDisabledForm, setDisabledForm ]= React.useState(true);
+  const handleToggleButton = () => setDisabledForm(!isDisabledForm);
+
   return (
     <>
       <Header/>
@@ -26,16 +29,25 @@ function Profile() {
             </label>
             <span className="profile__error">Ошибка</span>
           </div>
-          <div className="profile__buttons">
+          {!isDisabledForm ? (
+            <div className="profile__buttons">
             <button
               className="profile__button-edit"
-              type="submit"
+              onClick={handleToggleButton}
+              type="button"
             >Редактировать</button>
             <button
               className="profile__button-exit"
               type="submit"
             >Выйти из аккаунта</button>
           </div>
+          ):(
+            <button
+              type="submit"
+              className="profile__button-save"
+              onClick={handleToggleButton}
+            >Сохранить</button>
+          )}
         </div>
       </form>
     </>
