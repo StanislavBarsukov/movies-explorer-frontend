@@ -78,6 +78,7 @@
   line-height: 13px;
   text-align: right;
   border: none;
+  outline: none;
 }
 
 .profile__error {
