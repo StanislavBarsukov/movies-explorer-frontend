@@ -3,6 +3,7 @@ import FormAuth from '../FormAuth/FormAuth';
 import './Register.css';
 
 function Register() {
+
   return (
     <FormAuth
       title="Добро пожаловать!"

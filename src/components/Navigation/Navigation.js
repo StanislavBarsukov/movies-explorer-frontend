@@ -1,10 +1,11 @@
 import React from 'react';
 import './Navigation.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Navigation() {
   const [isOpen, setIsOpen] = React.useState(false);
   const handleToggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <>
       <button className="nav__button-open" type="button" onClick={handleToggleMenu}></button>

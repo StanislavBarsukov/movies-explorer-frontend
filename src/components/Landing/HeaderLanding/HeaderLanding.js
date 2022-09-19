@@ -2,7 +2,9 @@ import React from 'react';
 import './HeaderLanding.css';
 import Logo from '../../../images/landing-logo.svg'
 import { Link } from 'react-scroll';
+
 function HeaderLanding() {
+
   return (
     <section className="header-landing">
       <img

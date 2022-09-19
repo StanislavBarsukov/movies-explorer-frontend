@@ -4,6 +4,7 @@ import './Auth.css';
 
 function Auth() {
   const location = useLocation();
+
   return (
     <div>
       {location.pathname === "/" && (

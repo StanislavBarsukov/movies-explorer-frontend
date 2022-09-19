@@ -3,6 +3,7 @@ import './Login.css';
 import FormAuth from '../FormAuth/FormAuth';
 
 function Login() {
+
   return (
     <FormAuth
       title="Рады видеть!"

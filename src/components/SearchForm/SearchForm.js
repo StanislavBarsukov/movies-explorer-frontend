@@ -1,6 +1,7 @@
 import React from 'react';
 import './SearchForm.css';
 import Search from '../../images/search.svg';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm() {
 
@@ -18,7 +19,7 @@ function SearchForm() {
             <img src={Search} alt="Значек в виде лупы" className="search__img"/>
           </button>
       </form>
-      <span className="search__error">Ничего не найдено</span>
+      <FilterCheckbox/>
     </section>
   );
 }

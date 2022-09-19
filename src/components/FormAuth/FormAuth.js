@@ -1,10 +1,11 @@
 import React from 'react';
-import {Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 import './FormAuth.css';
-import Logo from "../../images/logo.svg";
+import Logo from '../../images/logo.svg';
 
 function FormAuth({ title, children, btnText, subtitle }) {
   const location = useLocation().pathname;
+
   return (
     <section className="form-auth">
       <div className="form-auth__top">
