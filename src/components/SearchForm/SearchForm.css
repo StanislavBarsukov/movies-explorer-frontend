@@ -10,7 +10,7 @@
     padding-bottom: 107px;
   }
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1200px) {
   .search {
     margin: 80px 70px 10px;
     grid-template-columns: 1fr max-content;
