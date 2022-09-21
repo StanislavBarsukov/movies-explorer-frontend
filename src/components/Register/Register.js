@@ -19,6 +19,7 @@ function Register() {
           placeholder="Имя"
           required={true}
         />
+      <span className="register__error">Что-то пошло не так...</span>
         <label className="register__label">E-mail</label>
         <input
           className="register__input"
@@ -28,6 +29,7 @@ function Register() {
           placeholder="E-mail"
           required={true}
         />
+      <span className="register__error">Что-то пошло не так...</span>
         <label className="register__label">Пароль</label>
         <input
           className="register__input"
