@@ -20,6 +20,7 @@ function Profile({}) {
                 type="name"
               />
             </label>
+            <span className="profile__error">Ошибка</span>
             <label className="profile__label"> E-mail
               <input
                 className="profile__input"
