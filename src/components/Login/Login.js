@@ -10,25 +10,26 @@ function Login() {
       btnText="Войти"
       subtitle="Ещё не зарегистрированы?"
     >
-        <label className="login__label">Email</label>
-        <input
-          className="login__input"
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Email"
-          required={true}
+      <label className="login__label">Email</label>
+      <input
+        className="login__input"
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Email"
+        required={true}
         />
-        <label className="login__label">Пароль</label>
-        <input
-          className="login__input"
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Пароль"
-          required={true}
+      <span className="login__error">Что-то не так</span>
+      <label className="login__label">Пароль</label>
+      <input
+        className="login__input"
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Пароль"
+        required={true}
         />
-        <span className="login__error"></span>
+        <span className="login__error">Что-то не так</span>
     </FormAuth>
   );
 }
