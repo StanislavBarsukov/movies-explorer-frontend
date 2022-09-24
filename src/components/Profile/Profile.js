@@ -18,6 +18,7 @@ function Profile({}) {
                 className="profile__input"
                 placeholder="Введите ваше имя"
                 type="name"
+                required={true}
               />
             </label>
             <span className="profile__error">Ошибка</span>
@@ -26,6 +27,7 @@ function Profile({}) {
                 className="profile__input"
                 placeholder="Введите ваш E-mail"
                 type="email"
+                required={true}
               />
             </label>
             <span className="profile__error">Ошибка</span>
