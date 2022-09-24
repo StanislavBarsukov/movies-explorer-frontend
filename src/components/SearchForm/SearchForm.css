@@ -67,7 +67,12 @@
   border-radius: 48px;
   background-color: rgba(52, 86, 243, 1);
   cursor: pointer;
+  transition: opacity ease-in-out 0.5s;
 }
+.search__button:hover {
+  opacity: 0.8;
+}
+
 .search__img {
 
 }
