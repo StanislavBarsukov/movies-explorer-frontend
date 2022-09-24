@@ -79,6 +79,12 @@
   text-align: right;
   border: none;
   outline: none;
+  cursor: pointer;
+}
+.profile__input:focus {
+  background-color: rgba(249, 249, 249, 1);
+  cursor: text;
+  border-radius: 10px;
 }
 
 .profile__error {
@@ -145,6 +151,8 @@
   text-align: center;
   color: rgba(255, 255, 255, 1);
   border-radius: 3px;
+  transition: opacity ease-in-out 0.2s;
+  cursor: pointer;
 }
 @media screen and (min-width: 768px) {
   .profile__button-save {
@@ -153,4 +161,7 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
+.profile__button-save:hover {
+  opacity: 0.8;
 }
