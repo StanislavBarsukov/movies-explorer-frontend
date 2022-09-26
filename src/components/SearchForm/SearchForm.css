@@ -3,6 +3,10 @@
   border-bottom: 1px solid rgba(170, 170, 170, .2);
   padding-bottom: 107px;
   display: grid;
+  grid-template-areas:
+      'form form'
+      'error error'
+      'ckbox ckbox';
 }
 @media screen and (min-width: 768px) {
   .search {
@@ -14,6 +18,10 @@
   .search {
     margin: 80px 70px 10px;
     grid-template-columns: 1fr max-content;
+    grid-template-areas:
+      'form form'
+      'error error'
+      'ckbox ckbox';
     column-gap: 41px;
     align-items: center;
     padding-bottom: 113px;
@@ -21,6 +29,7 @@
 }
 
 .search__form {
+  grid-area: form;
   border: 1.5px solid rgba(170, 170, 170, .2);
   border-radius: 50px;
   display: flex;
@@ -75,4 +84,14 @@
 
 .search__img {
 
+}
+
+.search__error {
+  grid-area: error;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(255, 48, 85, 1);
+  text-align: center;
 }

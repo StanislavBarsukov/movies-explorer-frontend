@@ -19,6 +19,7 @@ function SearchForm() {
             <img src={Search} alt="Значек в виде лупы" className="search__img"/>
           </button>
       </form>
+      <span className="search__error">Errorfghjklkjhgffghnjklmnbv</span>
       <FilterCheckbox/>
     </section>
   );
