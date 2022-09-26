@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 14px;
+}
+
+.header__logo {
+  width: 38px;
+  height: 38px;
+  transition: opacity ease-in-out 0.5s;
+}
+.header__logo:hover {
+  opacity: 0.8;
+}
+@media screen and (min-width: 768px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header {
+    padding: 18px 70px;
+  }
+}
+
+.header__landing {
+  background-color: rgba(7, 48, 66, 1);
+}

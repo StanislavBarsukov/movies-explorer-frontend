@@ -1,0 +1,131 @@
+.header-landing {
+  background-color: rgba(7, 48, 66, 1);
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 10px 30px 10px;
+}
+@media screen and (min-width: 768px) {
+  .header-landing {
+    padding: 140px 44px 76px 44px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header-landing {
+    padding: 45px 35px 45px 35px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .header-landing {
+    padding: 75px 70px 75px 70px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}
+
+.header-landing__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media screen and (min-width: 1024px) {
+  .header-landing__container {
+    align-items: start;
+  }
+}
+
+
+.header-landing__logo {
+  width: 210px;
+  height: 206px;
+  object-fit: contain;
+}
+@media screen and (min-width: 768px) {
+  .header-landing__logo {
+    width: 310px;
+    height: 304px;
+  }
+}
+
+.header-landing__title {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 38px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-block: 0;
+  margin-inline: 0;
+  margin-top: 44px;
+  width: 300px;
+}
+@media screen and (min-width: 768px) {
+  .header-landing__title {
+    font-size: 40px;
+    line-height: 50px;
+    margin-top: 48px;
+    width: 680px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header-landing__title {
+    font-size: 50px;
+    line-height: 58px;
+    margin-top: 0;
+    width: 640px;
+    text-align: start;
+  }
+}
+
+.header-landing__subtitle {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  margin-block: 0;
+  margin-inline: 0;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  margin-top: 24px;
+  width: 260px;
+}
+@media screen and (min-width: 768px) {
+  .header-landing__subtitle {
+    margin-top: 22px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header-landing__subtitle {
+    margin-top: 36px;
+    width: 310px;
+    text-align: start;
+  }
+}
+
+.header-landing__button {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-radius: 3px;
+  margin-top: 80px;
+  cursor: pointer;
+  transition: opacity ease-in-out 0.5s;
+}
+.header-landing__button:hover {
+  opacity: 0.7;
+}
+@media screen and (min-width: 768px) {
+  .header-landing__button {
+    margin-top: 92px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header-landing__button {
+    margin-top: 156px;
+  }
+}

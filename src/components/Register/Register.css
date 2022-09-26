@@ -1,0 +1,73 @@
+.register {
+
+}
+
+.register__label {
+  align-items: start;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(160, 160, 160, 1);
+  padding-bottom: 10px;
+  width: 260px;
+}
+@media screen and (min-width: 768px) {
+  .register__label {
+    width: 396px;
+  }
+}
+
+.register__input {
+  border: none;
+  background-color: rgba(249, 249, 249, 1);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 15px 15px;
+  margin-bottom: 10px;
+  width: 260px;
+  outline: none;
+  cursor: pointer;
+}
+.register__input:focus {
+  background-color: rgba(249, 249, 249, .0);
+  cursor: text;
+}
+.register__input:last-of-type {
+  margin-bottom: 0;
+}
+.register__input::placeholder {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(160, 160, 160, 1);
+}
+@media screen and (min-width: 768px) {
+  .register__input {
+    width: 396px;
+  }
+}
+
+.register__error {
+  margin-bottom: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: rgba(255, 48, 85, 1);
+  width: 260px;
+}
+.register__error:last-of-type {
+  margin-bottom: 157px;
+}
+@media screen and (min-width: 768px) {
+  .register__error {
+    width: 396px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .register__error:last-of-type {
+    margin-bottom: 69px;
+  }
+}

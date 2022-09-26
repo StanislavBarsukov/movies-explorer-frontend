@@ -1,0 +1,123 @@
+.movie {
+  background-color: rgba(249, 249, 249, 1);
+  width: 300px;
+
+}
+.movie:hover {
+  background-color: rgba(249, 249, 249, .11);
+}
+@media screen and (min-width: 768px) {
+  .movie {
+    width: 708px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .movie {
+    width: 1140px;
+  }
+}
+
+.movie__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 14px 16px 14px 12px;
+}
+@media screen and (min-width: 768px) {
+  .movie__container {
+    flex-direction: column;
+    padding: 22px 0 22px 22px;
+  }
+}
+
+.movie__description {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+@media screen and (min-width: 768px) {
+  .movie__description {
+    row-gap: 13px;
+  }
+}
+
+.movie__img {
+  height: 168px;
+  width: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (min-width: 768px) {
+  .movie__img {
+    height: 122px;
+    width: 220px;
+    padding: 6px 6px 6px 0;
+  }
+}
+
+.movie__title {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  margin-block: 0;
+  margin-inline: 0;
+}
+@media screen and (min-width: 768px) {
+  .movie__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.movie__time {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: rgba(160, 160, 160, 1);
+  margin-block: 0;
+  margin-inline: 0;
+}
+
+.movie__button {
+  grid-area: like;
+  background-image: url(../../images/like.svg);
+  border: none;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  padding: 0;
+  width: 14px;
+  height: 12px;
+  transition: opacity 0.4s ease-in-out;
+  margin-top: 2px;
+}
+.movie__button:hover {
+  opacity: 0.7;
+}
+@media screen and (min-width: 768px) {
+  .movie__button {
+    margin-top: 0;
+  }
+}
+
+.movie__button_active {
+  background-image: url(../../images/like-active.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+.movie__button_delete {
+  background-image: url(../../images/movies-delete.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+.movie__button_delete-block {
+  display: none;
+}
