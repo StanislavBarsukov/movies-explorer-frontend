@@ -5,7 +5,7 @@ import Logo from '../../images/logo.svg';
 import Auth from '../Auth/Auth';
 import Navigation from '../Navigation/Navigation';
 
-function Header({loggedIn}) {
+function Header({ loggedIn }) {
   const location = useLocation().pathname;
 
   return (
@@ -18,6 +18,9 @@ function Header({loggedIn}) {
         />
       </Link>
       { loggedIn ? ( location === "/" && (<Navigation/>)) : ( location === "/" && (<Auth/>))}
+      { location === "/profile" && ( <Navigation/>)}
+      { location === "/movies" && ( <Navigation/>)}
+      { location === "/save-movies" && ( <Navigation/>)}
     </header>
   );
 }
