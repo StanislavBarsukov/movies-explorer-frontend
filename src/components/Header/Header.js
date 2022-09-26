@@ -5,7 +5,7 @@ import Logo from '../../images/logo.svg';
 import Auth from '../Auth/Auth';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header({loggedIn}) {
   const location = useLocation().pathname;
 
   return (
@@ -17,10 +17,7 @@ function Header() {
           alt="Круглый логоти с буквой внутри"
         />
       </Link>
-      { location === "/" && (<Auth/>)}
-      { location === "/profile" && ( <Navigation/>)}
-      { location === "/movies" && ( <Navigation/>)}
-      { location === "/save-movies" && ( <Navigation/>)}
+      { loggedIn ? ( location === "/" && (<Navigation/>)) : ( location === "/" && (<Auth/>))}
     </header>
   );
 }
