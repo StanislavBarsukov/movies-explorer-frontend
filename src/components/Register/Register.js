@@ -1,14 +1,22 @@
 import React from 'react';
 import FormAuth from '../FormAuth/FormAuth';
 import './Register.css';
+import useFormWithValidation from '../../utils/hook/Validate';
 
-function Register() {
+function Register({ handleRegister }) {
+  const validation = useFormWithValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegister(validation.values);
+  };
 
   return (
     <FormAuth
       title="Добро пожаловать!"
       btnText="Зарегистрироваться"
       subtitle="Уже зарегистрированы?"
+      onSubmit={handleSubmit}
     >
         <label className="register__label">Имя</label>
         <input
@@ -17,7 +25,11 @@ function Register() {
           name="name"
           type="name"
           placeholder="Имя"
-          required={true}
+          minLength="2"
+          maxLength="30"
+          required
+          autoComplete="off"
+          onChange={validation.handleChange}
         />
       <span className="register__error">Что-то пошло не так...</span>
         <label className="register__label">E-mail</label>
@@ -27,7 +39,11 @@ function Register() {
           name="email"
           type="email"
           placeholder="E-mail"
-          required={true}
+          required
+          minLength="2"
+          maxLength="30"
+          autoComplete="off"
+          onChange={validation.handleChange}
         />
       <span className="register__error">Что-то пошло не так...</span>
         <label className="register__label">Пароль</label>
@@ -37,7 +53,11 @@ function Register() {
           name="password"
           type="password"
           placeholder="Пароль"
-          required={true}
+          minLength="2"
+          maxLength="30"
+          required
+          autoComplete="off"
+          onChange={validation.handleChange}
         />
         <span className="register__error">Что-то пошло не так...</span>
     </FormAuth>

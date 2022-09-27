@@ -13,7 +13,6 @@ function Movies() {
     apiMovies.getMovies()
       .then((data) => {
         setIsMovies(data)
-        console.log(data)
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
