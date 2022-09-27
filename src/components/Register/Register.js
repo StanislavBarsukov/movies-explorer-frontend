@@ -17,6 +17,7 @@ function Register({ handleRegister }) {
       btnText="Зарегистрироваться"
       subtitle="Уже зарегистрированы?"
       onSubmit={handleSubmit}
+      isDisabled={!validation.isValid}
     >
         <label className="register__label">Имя</label>
         <input
@@ -31,7 +32,7 @@ function Register({ handleRegister }) {
           autoComplete="off"
           onChange={validation.handleChange}
         />
-      <span className="register__error">Что-то пошло не так...</span>
+      <span className="register__error">{validation.errors.name}</span>
         <label className="register__label">E-mail</label>
         <input
           className="register__input"
@@ -45,7 +46,7 @@ function Register({ handleRegister }) {
           autoComplete="off"
           onChange={validation.handleChange}
         />
-      <span className="register__error">Что-то пошло не так...</span>
+      <span className="register__error">{validation.errors.email}</span>
         <label className="register__label">Пароль</label>
         <input
           className="register__input"
@@ -53,13 +54,13 @@ function Register({ handleRegister }) {
           name="password"
           type="password"
           placeholder="Пароль"
-          minLength="2"
+          minLength="8"
           maxLength="30"
           required
           autoComplete="off"
           onChange={validation.handleChange}
         />
-        <span className="register__error">Что-то пошло не так...</span>
+        <span className="register__error">{validation.errors.password}</span>
     </FormAuth>
   );
 }

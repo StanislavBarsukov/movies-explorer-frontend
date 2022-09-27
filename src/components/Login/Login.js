@@ -17,6 +17,7 @@ function Login({ handleLogin }) {
       btnText="Войти"
       subtitle="Ещё не зарегистрированы?"
       onSubmit={handleSubmit}
+      isDisabled={!validation.isValid}
     >
       <label className="login__label">Email</label>
       <input
@@ -31,7 +32,7 @@ function Login({ handleLogin }) {
         autoComplete="off"
         onChange={validation.handleChange}
         />
-      <span className="login__error">Что-то не так</span>
+      <span className="login__error">{validation.errors.email}</span>
       <label className="login__label">Пароль</label>
       <input
         className="login__input"
@@ -39,13 +40,13 @@ function Login({ handleLogin }) {
         name="password"
         type="password"
         placeholder="Пароль"
-        minLength="2"
+        minLength="8"
         maxLength="30"
         required
         autoComplete="off"
         onChange={validation.handleChange}
         />
-        <span className="login__error">Что-то не так</span>
+        <span className="login__error">{validation.errors.password}</span>
     </FormAuth>
   );
 }

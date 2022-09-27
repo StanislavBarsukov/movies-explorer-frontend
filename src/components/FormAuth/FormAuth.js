@@ -2,11 +2,9 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './FormAuth.css';
 import Logo from '../../images/logo.svg';
-import useFormWithValidation from "../../utils/hook/Validate";
 
-function FormAuth({ title, children, btnText, subtitle, onSubmit}) {
+function FormAuth({ title, children, btnText, subtitle, onSubmit, isDisabled }) {
   const location = useLocation().pathname;
-  const validation = useFormWithValidation();
 
   return (
     <section className="form-auth">
@@ -23,8 +21,8 @@ function FormAuth({ title, children, btnText, subtitle, onSubmit}) {
       >{children}
         <div className="form-auth__bottom">
           <button
-            className={`${validation.isValid ? "form-auth__button" : "form-auth__button form-auth__button_disabled"}`}
-            disabled={!validation.isValid}
+            className={`form-auth__button ${isDisabled ? "form-auth__button_disabled" : ''}`}
+            disabled={isDisabled}
           >{btnText}</button>
           <p className="form-auth__subtitle">
             {subtitle}
