@@ -11,7 +11,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   return (
     <div className="page">
       <Routes>

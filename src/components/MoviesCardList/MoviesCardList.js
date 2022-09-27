@@ -1,25 +1,20 @@
 import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import Cards from '../../utils/cards';
 
-function MoviesCardList() {
-  const [ isMovies, setIsMovies] = React.useState([]);
-  const getMovies = () => setIsMovies(Cards);
-
-  React.useEffect(() => {
-    getMovies()
-  }, []);
+function MoviesCardList({ movies }) {
 
   return (
     <section className="movies">
       <ul className="movies__list">
-        {isMovies.map((movie, index) => (
+        {movies.map((movie) => (
           <MoviesCard
-            key={index}
-            name={movie.name}
+            key={movie.id}
+            movie={movie}
+            nameRU={movie.nameRU}
             duration={movie.duration}
-            img={movie.img}
+            image={`https://api.nomoreparties.co/${movie.image.url}`}
+            trailer={movie.trailerLink}
           />
           ))}
       </ul>
@@ -28,3 +23,5 @@ function MoviesCardList() {
 }
 
 export default MoviesCardList;
+
+//`${BASE_URL_MOVIES}${movie.image.url}`
