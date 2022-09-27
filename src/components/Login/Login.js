@@ -1,14 +1,22 @@
 import React from 'react';
 import './Login.css';
 import FormAuth from '../FormAuth/FormAuth';
+import useFormWithValidation from "../../utils/hook/Validate";
 
-function Login() {
+function Login({ handleLogin }) {
+  const validation = useFormWithValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(validation.values);
+  };
 
   return (
     <FormAuth
       title="Рады видеть!"
       btnText="Войти"
       subtitle="Ещё не зарегистрированы?"
+      onSubmit={handleSubmit}
     >
       <label className="login__label">Email</label>
       <input
@@ -17,7 +25,11 @@ function Login() {
         name="email"
         type="email"
         placeholder="Email"
-        required={true}
+        required
+        minLength="2"
+        maxLength="30"
+        autoComplete="off"
+        onChange={validation.handleChange}
         />
       <span className="login__error">Что-то не так</span>
       <label className="login__label">Пароль</label>
@@ -27,7 +39,11 @@ function Login() {
         name="password"
         type="password"
         placeholder="Пароль"
-        required={true}
+        minLength="2"
+        maxLength="30"
+        required
+        autoComplete="off"
+        onChange={validation.handleChange}
         />
         <span className="login__error">Что-то не так</span>
     </FormAuth>
