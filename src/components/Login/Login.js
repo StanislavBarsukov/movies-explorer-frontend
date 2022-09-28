@@ -30,6 +30,7 @@ function Login({ handleLogin }) {
         minLength="2"
         maxLength="30"
         autoComplete="off"
+        pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
         onChange={validation.handleChange}
         />
       <span className="login__error">{validation.errors.email}</span>

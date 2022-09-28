@@ -44,6 +44,7 @@ function Register({ handleRegister }) {
           minLength="2"
           maxLength="30"
           autoComplete="off"
+          pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
           onChange={validation.handleChange}
         />
       <span className="register__error">{validation.errors.email}</span>

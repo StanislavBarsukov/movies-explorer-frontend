@@ -165,3 +165,8 @@
 .profile__button-save:hover {
   opacity: 0.8;
 }
+
+.profile__button-save_disabled {
+  background-color: rgba(248, 248, 248, 1);
+  color: rgba(194, 194, 194, 1);
+}
