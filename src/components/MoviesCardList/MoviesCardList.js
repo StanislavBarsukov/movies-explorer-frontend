@@ -23,5 +23,3 @@ function MoviesCardList({ movies }) {
 }
 
 export default MoviesCardList;
-
-//`${BASE_URL_MOVIES}${movie.image.url}`
