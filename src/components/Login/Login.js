@@ -3,12 +3,13 @@ import './Login.css';
 import FormAuth from '../FormAuth/FormAuth';
 import useFormWithValidation from "../../utils/hook/Validate";
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, message }) {
   const validation = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(validation.values);
+    handleLogin(validation.values.email, validation.values.password);
+    validation.resetForm()
   };
 
   return (
@@ -18,6 +19,7 @@ function Login({ handleLogin }) {
       subtitle="Ещё не зарегистрированы?"
       onSubmit={handleSubmit}
       isDisabled={!validation.isValid}
+      message={message}
     >
       <label className="login__label">Email</label>
       <input

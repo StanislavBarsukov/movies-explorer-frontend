@@ -77,14 +77,18 @@
   font-size: 11px;
   line-height: 13px;
   text-align: right;
-  border: none;
+  box-sizing: border-box;
   outline: none;
-  cursor: pointer;
+  border: none;
 }
 .profile__input:focus {
+  border: 1px solid deepskyblue;
   background-color: rgba(249, 249, 249, 1);
   cursor: text;
-  border-radius: 10px;
+  border-radius: 4px;
+}
+.profile__input:disabled {
+  background-color: transparent;
 }
 
 .profile__error {

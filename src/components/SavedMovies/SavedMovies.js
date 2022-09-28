@@ -6,12 +6,12 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import CleanBlock from '../CleanBlock/CleanBlock';
 
-function SavedMovies() {
+function SavedMovies({ moviesSave, onDelete }) {
   return (
     <main>
       <Header/>
       <SearchForm/>
-      <MoviesCardList/>
+      <MoviesCardList  moviesSave={moviesSave} onDelete={onDelete}/>
       <CleanBlock/>
       <Footer/>
     </main>

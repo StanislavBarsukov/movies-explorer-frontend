@@ -2,15 +2,35 @@ import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import useFormWithValidation from '../../utils/hook/Validate';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ handleUpdateUser }) {
-  const [ isDisabledForm, setDisabledForm ]= React.useState("");
-  const validation = useFormWithValidation();
+function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
+  const [ isDisabledForm, setDisabledForm ]= React.useState(false);
+  const currentUser = React.useContext(CurrentUserContext);
+  const { values, isValid, errors, handleChange, setValues, resetForm } = useFormWithValidation();
+
   const handleToggleButton = () => setDisabledForm(!isDisabledForm);
+
+  React.useEffect(() => {
+    setValues(currentUser);
+  }, [currentUser, setValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleUpdateUser(validation.values);
+    if (isSuccess) {
+      handleUpdateUser ({
+        name: values.name,
+        email: values.email,
+      });
+      resetForm();
+      handleToggleButton()
+    } else {
+      handleUpdateUser ({
+        name: values.name,
+        email: values.email,
+      });
+      resetForm();
+    }
   };
 
   return (
@@ -22,7 +42,7 @@ function Profile({ handleUpdateUser }) {
         noValidate
       >
         <div className="profile__container">
-          <h2 className="profile__title">Привет, Виталий!</h2>
+          <h2 className="profile__title">{`Привет, ${currentUser.name} !`}</h2>
           <div className="profile__form">
             <label className="profile__label">Имя
               <input
@@ -35,10 +55,12 @@ function Profile({ handleUpdateUser }) {
                 minLength="2"
                 maxLength="30"
                 autoComplete="off"
-                onChange={validation.handleChange}
+                onChange={handleChange}
+                defaultValue={currentUser.name}
+                disabled={!isDisabledForm}
               />
             </label>
-            <span className="profile__error">{validation.errors.name}</span>
+            <span className="profile__error">{errors.name}</span>
             <label className="profile__label"> E-mail
               <input
                 className="profile__input"
@@ -51,10 +73,12 @@ function Profile({ handleUpdateUser }) {
                 maxLength="30"
                 autoComplete="off"
                 pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
-                onChange={validation.handleChange}
+                onChange={handleChange}
+                defaultValue={currentUser.email}
+                disabled={!isDisabledForm}
               />
             </label>
-            <span className="profile__error">{validation.errors.email}</span>
+            <span className="profile__error">{errors.email}</span>
           </div>
           {!isDisabledForm ? (
             <div className="profile__buttons">
@@ -66,16 +90,17 @@ function Profile({ handleUpdateUser }) {
             <button
               className="profile__button-exit"
               type="submit"
+              onClick={handleLogout}
             >Выйти из аккаунта</button>
           </div>
           ):(
             <button
               type="submit"
-              className={`profile__button-save ${!validation.isValid ? "profile__button-save_disabled" : ''}`}
-              disabled={!validation.isValid}
-              onClick={handleToggleButton}
+              className={`profile__button-save ${!isValid ? "profile__button-save_disabled" : ''}`}
+              disabled={!isValid}
             >Сохранить</button>
           )}
+          <span className="profile__error">{message}</span>
         </div>
       </form>
     </>
