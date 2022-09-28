@@ -32,30 +32,16 @@ function Movies({}) {
       }
     });
 
-    const [moviesMore, setMoviesMore] = React.useState(() => {
+    const [moviesMore] = React.useState(() => {
       const windowWidth = window.innerWidth;
       if (windowWidth >= 1024) {
-        return 3
-      } else if (windowWidth >= 450 && windowWidth >= 670) {
-        return 2
+        return 7
+      } else if (windowWidth < 400 && windowWidth >= 670) {
+        return 7
       } else  {
-        return 2
+        return 5
       }
     });
-
-    const onChangeScreenWidth = () => {
-      const windowWidth = window.innerWidth;
-      if (windowWidth >= 1024) {
-        setAmount(12)
-        setMoviesMore(3)
-      } else if (windowWidth >= 450 && windowWidth >= 670) {
-        setAmount(8)
-        setMoviesMore(2)
-      } else {
-        setAmount(5)
-        setMoviesMore(2)
-      }
-    };
 
     const renderMovies = movies.slice(0, amount);
 
@@ -63,9 +49,7 @@ function Movies({}) {
       setAmount(more => more + moviesMore)
     }
 
-    React.useEffect(() => {
-      window.addEventListener('resize', onChangeScreenWidth);
-    }, []);
+
 
   return (
     <main>
