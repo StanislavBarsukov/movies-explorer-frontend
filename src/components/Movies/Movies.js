@@ -5,24 +5,15 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import More from '../More/More';
-import apiMovies from "../../utils/ApiMovies/ApiMovies";
 
-function Movies({}) {
-  const [ movies, setIsMovies] = React.useState([]);
+function Movies({ movies }) {
 
-    React.useEffect(() => {
-      apiMovies.getMovies()
-        .then((data) => {
-          setIsMovies(data)
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        });
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
 
-    }, []);
-
-    const [amount, setAmount] = React.useState(() => {
-      const windowWidth = window.innerWidth;
+  const [amount, setAmount] = React.useState(() => {
+    const windowWidth = window.innerWidth;
       if (windowWidth > 1020) {
         return 12
       } else if (windowWidth >= 760) {
@@ -30,46 +21,41 @@ function Movies({}) {
       } else  {
         return 5
       }
-    });
+  });
 
-    const [moviesMore, setMoviesMore] = React.useState(() => {
-      const windowWidth = window.innerWidth;
+  const [moviesMore, setMoviesMore] = React.useState(() => {
+    const windowWidth = window.innerWidth;
       if (windowWidth > 768) {
         return 7
       } else if (windowWidth < 450) {
         return 5
       }
-    });
+  });
 
-    const handleResize = () => {
-      const windowWidth = window.innerWidth;
+  const handleResize = () => {
+    const windowWidth = window.innerWidth;
       if (windowWidth > 1020) {
-        setAmount(12)
-        setMoviesMore(7)
-      } else if (windowWidth >= 760) {
-        setAmount(8)
-        setMoviesMore(7)
-      } else  {
-        setAmount(5)
-        setMoviesMore(5)
-      }
-    }
-    React.useEffect(() => {
-      window.addEventListener('resize', handleResize)
-
-    }, [])
-
-    const renderMovies = movies.slice(0, amount);
-    const addMore = () => {
-      setAmount(more => more + moviesMore)
-    }
+          setAmount(12)
+          setMoviesMore(7)
+        } else if (windowWidth >= 760) {
+          setAmount(8)
+          setMoviesMore(7)
+        } else  {
+          setAmount(5)
+          setMoviesMore(5)
+        }
+  }
+  const renderMovies = movies.slice(0, amount);
+  const addMore = () => {
+    setAmount(more => more + moviesMore)
+  }
 
   return (
     <main>
       <Header/>
       <SearchForm/>
       <MoviesCardList  movies={renderMovies} />
-      <More onClick={addMore}/>
+      <More onClick={addMore} movies={movies}  renderMovies={renderMovies}/>
       <Footer/>
     </main>
   );

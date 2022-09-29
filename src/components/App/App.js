@@ -1,5 +1,4 @@
 import React from "react";
-import * as auth from '../../utils/Auth/Auth';
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import './App.css';
 import Main from '../Landing/Main/Main';
@@ -11,11 +10,23 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {CurrentUserContext} from "../../context/CurrentUserContext";
+import apiMovies from "../../utils/ApiMovies/ApiMovies";
 
 function App() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [ movies, setIsMovies] = React.useState([]);
+  React.useEffect(() => {
+    apiMovies.getMovies()
+      .then((data) => {
+        setIsMovies(data)
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+
+  }, []);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -41,7 +52,7 @@ function App() {
           />
           <Route path="/movies" element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Movies/>
+              <Movies movies={movies}/>
             </ProtectedRoute>
           }
           />
