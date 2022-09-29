@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import * as auth from '../../utils/Auth/Auth';
 import './App.css';
 import Main from '../Landing/Main/Main';
 import Register from '../Register/Register';
@@ -9,14 +10,17 @@ import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import {CurrentUserContext} from "../../context/CurrentUserContext";
-import apiMovies from "../../utils/ApiMovies/ApiMovies";
+import {CurrentUserContext} from '../../context/CurrentUserContext';
+import apiMovies from '../../utils/ApiMovies/ApiMovies';
 
 function App() {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = React.useState(true);
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [ movies, setIsMovies] = React.useState([]);
+  const [loggedIn, setLoggedIn ] = React.useState(false);
+  const [ isSuccess, setIsSuccess ] = React.useState(false);
+  const [currentUser, setCurrentUser ] = React.useState({});
+  const [ movies, setIsMovies ] = React.useState([]);
+  const [ messageError, setMessageError ] = React.useState('');
+
   React.useEffect(() => {
     apiMovies.getMovies()
       .then((data) => {
@@ -28,6 +32,59 @@ function App() {
 
   }, []);
 
+  React.useEffect(() => {
+    const tokenCheck = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        auth.getContent(token)
+          .then(() => {
+            setLoggedIn(true);
+            navigate("/movies");
+          })
+          .catch((err) => {
+            navigate("/sign-in");
+          });
+      }
+    };
+    tokenCheck();
+  }, [navigate]);
+
+  const handleRegister = ({email, password, name}) => {
+    auth.register(email, password, name)
+      .then((res) => {
+        if(res.user) {
+          setMessageError('')
+          handleLogin(password, email);
+          navigate("/movies");
+        }
+      })
+      .catch((res) => {
+        if(res.statusText === 'Bad Request') {
+         setMessageError('Введены невалидные данные');
+        }
+        else if (res === 409) {
+         setMessageError('Такой E-mail уже зарегестрирован ');
+
+       } else if (res === 500) {
+         setMessageError('На сервере произошла ошибка');
+       }
+        else {
+          setMessageError('На сервере произошла ошибка');
+        }
+      })
+  };
+
+  const handleLogin = (email, password) => {
+    auth.authorize(email, password)
+      .then(() => {
+        setLoggedIn(true);
+        navigate("/movies");
+      })
+      .catch((err) => {
+        console.log(`Некорректно заполнено одно из полей ${err}`)
+      });
+  };
+
   const handleLogout = () => {
     localStorage.clear();
     setLoggedIn(false);
@@ -38,15 +95,17 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/sign-up" element={<Register />}/>
-          <Route path="/sign-in" element={<Login />}/>
+          <Route path="/sign-up" element={
+            <Register handleRegister={handleRegister} messageError={messageError}/>
+          }/>
+          <Route path="/sign-in" element={<Login  handleLogin={handleLogin}/>}/>
           <Route path="/" element={
             <Main loggedIn={loggedIn}/>
           }/>
           <Route path="*" element={<NotFound/>}/>
           <Route path="/profile" element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Profile/>
+              <Profile handleLogout={handleLogout}/>
             </ProtectedRoute>
           }
           />

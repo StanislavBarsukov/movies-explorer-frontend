@@ -3,7 +3,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import useFormWithValidation from '../../utils/hook/Validate';
 
-function Profile({ handleUpdateUser }) {
+function Profile({ handleUpdateUser, handleLogout }) {
   const [ isDisabledForm, setDisabledForm ]= React.useState("");
   const validation = useFormWithValidation();
   const handleToggleButton = () => setDisabledForm(!isDisabledForm);
@@ -66,6 +66,7 @@ function Profile({ handleUpdateUser }) {
             <button
               className="profile__button-exit"
               type="submit"
+              onClick={handleLogout}
             >Выйти из аккаунта</button>
           </div>
           ):(

@@ -3,12 +3,12 @@ import FormAuth from '../FormAuth/FormAuth';
 import './Register.css';
 import useFormWithValidation from '../../utils/hook/Validate';
 
-function Register({ handleRegister }) {
+function Register({ handleRegister, messageError }) {
   const validation = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegister(validation.values);
+    handleRegister(validation.values.email, validation.values.password, validation.values.name);
   };
 
   return (
@@ -18,6 +18,7 @@ function Register({ handleRegister }) {
       subtitle="Уже зарегистрированы?"
       onSubmit={handleSubmit}
       isDisabled={!validation.isValid}
+      messageError={!messageError}
     >
         <label className="register__label">Имя</label>
         <input

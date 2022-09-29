@@ -8,7 +8,7 @@ function Login({ handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(validation.values);
+    handleLogin(validation.values.email, validation.values.password);
   };
 
   return (
