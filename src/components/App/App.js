@@ -49,38 +49,40 @@ function App() {
     tokenCheck();
   }, [navigate]);
 
-  const handleRegister = ({email, password, name}) => {
+  const handleRegister = (email, password, name) => {
     auth.register(email, password, name)
       .then((res) => {
         if(res.user) {
-          setMessageError('')
-          handleLogin(password, email);
-          navigate("/movies");
+          setMessageError('');
+          handleLogin(email, password);
+          navigate('/movies');
         }
       })
-      .catch((res) => {
-        if(res.statusText === 'Bad Request') {
-         setMessageError('Введены невалидные данные');
-        }
-        else if (res === 409) {
-         setMessageError('Такой E-mail уже зарегестрирован ');
-
-       } else if (res === 500) {
-         setMessageError('На сервере произошла ошибка');
-       }
-        else {
+      .catch((err) => {
+        if(err === 400) {
+          setMessageError('Введены невалидные данные');
+        } else if (err === 409) {
+          setMessageError('Такой E-mail уже зарегестрирован');
+        } else if (err === 500) {
           setMessageError('На сервере произошла ошибка');
         }
-      })
+        console.log(`Некорректно заполнено одно из полей ${err}`)
+      });
   };
 
   const handleLogin = (email, password) => {
     auth.authorize(email, password)
       .then(() => {
         setLoggedIn(true);
-        navigate("/movies");
+        navigate('/movies');
+        setMessageError('');
       })
       .catch((err) => {
+        if(err === 400) {
+          setMessageError('Введены невалидные данные');
+        } else if (err === 401) {
+          setMessageError('Ошибка...Проверьте корректность Пароля или E-mail');
+        }
         console.log(`Некорректно заполнено одно из полей ${err}`)
       });
   };
@@ -98,7 +100,8 @@ function App() {
           <Route path="/sign-up" element={
             <Register handleRegister={handleRegister} messageError={messageError}/>
           }/>
-          <Route path="/sign-in" element={<Login  handleLogin={handleLogin}/>}/>
+          <Route path="/sign-in" element={<Login handleLogin={handleLogin} messageError={messageError}/>
+          }/>
           <Route path="/" element={
             <Main loggedIn={loggedIn}/>
           }/>

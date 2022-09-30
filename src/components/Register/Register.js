@@ -18,7 +18,7 @@ function Register({ handleRegister, messageError }) {
       subtitle="Уже зарегистрированы?"
       onSubmit={handleSubmit}
       isDisabled={!validation.isValid}
-      messageError={!messageError}
+      messageError={messageError}
     >
         <label className="register__label">Имя</label>
         <input
