@@ -19,7 +19,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  updateUser(data) {
+  updateUser(email, name) {
     return fetch(`${this._url}/users/me`, {
       method:"PATCH",
       headers: {
@@ -27,8 +27,8 @@ class Api {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: data.name,
-        email: data.email,
+        email: email,
+        name: name,
       })
     }).then(this._checkResponse);
   }

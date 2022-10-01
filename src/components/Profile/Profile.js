@@ -5,14 +5,23 @@ import useFormWithValidation from '../../utils/hook/Validate';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function Profile({ handleUpdateUser, handleLogout }) {
-  const [ isDisabledForm, setDisabledForm ]= React.useState('');
+  const [ isDisabledForm, setDisabledForm ]= React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, isValid, errors, handleChange } = useFormWithValidation();
+  const { values, isValid, errors, handleChange, setValues, resetForm } = useFormWithValidation();
   const handleToggleButton = () => setDisabledForm(!isDisabledForm);
+
+  React.useEffect(() => {
+    setValues(currentUser);
+  }, [currentUser, setValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleUpdateUser ({name:values.name, email:values.email});
+    handleUpdateUser ({
+      name: values.name,
+      email: values.email,
+    });
+    resetForm();
+    handleToggleButton()
   };
 
   return (
@@ -24,7 +33,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
         noValidate
       >
         <div className="profile__container">
-          <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
+          <h2 className="profile__title">{`Привет, ${currentUser.name} !`}</h2>
           <div className="profile__form">
             <label className="profile__label">Имя
               <input
@@ -39,6 +48,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
                 autoComplete="off"
                 onChange={handleChange}
                 defaultValue={currentUser.name}
+                disabled={!isDisabledForm}
               />
             </label>
             <span className="profile__error">{errors.name}</span>
@@ -56,6 +66,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
                 pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
                 onChange={handleChange}
                 defaultValue={currentUser.email}
+                disabled={!isDisabledForm}
               />
             </label>
             <span className="profile__error">{errors.email}</span>
@@ -64,13 +75,13 @@ function Profile({ handleUpdateUser, handleLogout }) {
             <div className="profile__buttons">
             <button
               className="profile__button-edit"
-              onClick={handleToggleButton}
+              onClickCapture={handleToggleButton}
               type="button"
             >Редактировать</button>
             <button
               className="profile__button-exit"
               type="submit"
-              onClick={handleLogout}
+              onClickCapture={handleLogout}
             >Выйти из аккаунта</button>
           </div>
           ):(
@@ -78,7 +89,6 @@ function Profile({ handleUpdateUser, handleLogout }) {
               type="submit"
               className={`profile__button-save ${!isValid ? "profile__button-save_disabled" : ''}`}
               disabled={!isValid}
-              onClick={handleToggleButton}
             >Сохранить</button>
           )}
         </div>

@@ -79,7 +79,6 @@
   text-align: right;
   border: none;
   outline: none;
-  cursor: pointer;
 }
 .profile__input:focus {
   background-color: rgba(249, 249, 249, 1);

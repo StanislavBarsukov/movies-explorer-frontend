@@ -23,6 +23,10 @@ function App() {
   const [ messageError, setMessageError ] = React.useState('');
 
   React.useEffect(() => {
+    handleTokenCheck()
+  }, []);
+
+  React.useEffect(() => {
     if (loggedIn) {
       apiMovies.getMovies()
         .then((data) => {
@@ -53,15 +57,21 @@ function App() {
       auth.getContent(token)
         .then(() => {
           setLoggedIn(true);
-          navigate("/movies");
+          navigate('/movies');
         })
         .catch((err) => console.log(err));
     }
   };
 
-  React.useEffect(() => {
-    handleTokenCheck()
-  }, []);
+  const handleUpdateUser = ({ email, name }) => {
+    api.updateUser(email, name)
+      .then((res) => {
+        setCurrentUser(res.user);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  };
 
   const handleRegister = (email, password, name) => {
     auth.register(email, password, name)
@@ -105,7 +115,7 @@ function App() {
   const handleLogout = () => {
     localStorage.clear();
     setLoggedIn(false);
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -123,7 +133,10 @@ function App() {
           <Route path="*" element={<NotFound/>}/>
           <Route path="/profile" element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Profile handleLogout={handleLogout}/>
+              <Profile
+                handleUpdateUser={handleUpdateUser}
+                handleLogout={handleLogout}
+              />
             </ProtectedRoute>
           }
           />
