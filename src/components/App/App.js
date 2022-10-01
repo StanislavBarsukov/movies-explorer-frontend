@@ -12,6 +12,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {CurrentUserContext} from '../../context/CurrentUserContext';
 import apiMovies from '../../utils/ApiMovies/ApiMovies';
+import api from "../../utils/Api/Api";
 
 function App() {
   const navigate = useNavigate();
@@ -22,32 +23,45 @@ function App() {
   const [ messageError, setMessageError ] = React.useState('');
 
   React.useEffect(() => {
-    apiMovies.getMovies()
-      .then((data) => {
-        setIsMovies(data)
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-
-  }, []);
+    if (loggedIn) {
+      apiMovies.getMovies()
+        .then((data) => {
+          setIsMovies(data)
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
+  }, [loggedIn]);
 
   React.useEffect(() => {
-    const tokenCheck = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        auth.getContent(token)
-          .then(() => {
-            setLoggedIn(true);
-            navigate("/movies");
-          })
-          .catch((err) => {
-            navigate("/sign-in");
-          });
-      }
-    };
-    tokenCheck();
-  }, [navigate]);
+    if (loggedIn) {
+      api.getUser()
+        .then((user) => {
+          setCurrentUser(user.user)
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
+  }, [loggedIn]);
+
+  const handleTokenCheck = () => {
+    const token = localStorage.getItem('token');
+    setLoggedIn(true);
+    if (token) {
+      auth.getContent(token)
+        .then(() => {
+          setLoggedIn(true);
+          navigate("/movies");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  React.useEffect(() => {
+    handleTokenCheck()
+  }, []);
 
   const handleRegister = (email, password, name) => {
     auth.register(email, password, name)
@@ -72,10 +86,11 @@ function App() {
 
   const handleLogin = (email, password) => {
     auth.authorize(email, password)
-      .then(() => {
+      .then((res) => {
         setLoggedIn(true);
         navigate('/movies');
         setMessageError('');
+        localStorage.setItem('token', res.token);
       })
       .catch((err) => {
         if(err === 400) {

@@ -1,13 +1,36 @@
 class Api {
   constructor(data) {
     this._url = data.url;
-    this._headers = data.headers
   }
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(res.status);
+  }
+
+  getUser() {
+    return fetch(`${this._url}/users/me`, {
+      method:"GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    }).then(this._checkResponse);
+  }
+
+  updateUser(data) {
+    return fetch(`${this._url}/users/me`, {
+      method:"PATCH",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+      })
+    }).then(this._checkResponse);
   }
 
 }

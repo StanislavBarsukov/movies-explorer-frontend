@@ -31,7 +31,7 @@ export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      "Authorization" : `Bearer ${token}`,
+      "Authorization" : `Bearer ${localStorage.getItem("token")}`,
       headers,
     },
   })
