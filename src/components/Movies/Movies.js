@@ -6,13 +6,9 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import More from '../More/More';
 
-function Movies({ movies }) {
+function Movies({ movies, onSearch, message, onSave, onDelete, moviesSave, onShort }) {
 
-  React.useEffect(() => {
-    window.addEventListener('resize', handleResize);
-  }, []);
-
-  const [amount, setAmount] = React.useState(() => {
+  const [ amount, setAmount ] = React.useState(() => {
     const windowWidth = window.innerWidth;
       if (windowWidth > 1020) {
         return 12
@@ -23,7 +19,7 @@ function Movies({ movies }) {
       }
   });
 
-  const [moviesMore, setMoviesMore] = React.useState(() => {
+  const [ moviesMore, setMoviesMore ] = React.useState(() => {
     const windowWidth = window.innerWidth;
       if (windowWidth > 768) {
         return 7
@@ -50,12 +46,16 @@ function Movies({ movies }) {
     setAmount(more => more + moviesMore)
   }
 
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
+
   return (
     <main>
       <Header/>
-      <SearchForm/>
-      <MoviesCardList  movies={renderMovies} />
-      <More onClick={addMore} movies={movies}  renderMovies={renderMovies}/>
+      <SearchForm message={message} onSearch={onSearch} onShort={onShort}/>
+      <MoviesCardList movies={renderMovies} onSave={onSave} onDelete={onDelete} moviesSave={moviesSave}/>
+      <More onClick={addMore} movies={movies} renderMovies={renderMovies}/>
       <Footer/>
     </main>
   );

@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3002";
+export const BASE_URL = "http://localhost:3004";
 
 const checkResponse = (response) => {
   return response.ok ? response.json() : Promise.reject(response.status);
@@ -31,7 +31,7 @@ export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      "Authorization" : `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
       headers,
     },
   })

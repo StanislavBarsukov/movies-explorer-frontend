@@ -7,7 +7,6 @@ import Navigation from '../Navigation/Navigation';
 
 function Header({ loggedIn }) {
   const location = useLocation().pathname;
-
   return (
     <header className={`${ location === "/" ?  "header header__landing" : "header"}` }>
       <Link  to="/">

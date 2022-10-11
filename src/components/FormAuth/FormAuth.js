@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './FormAuth.css';
 import Logo from '../../images/logo.svg';
 
-function FormAuth({ title, children, btnText, subtitle, onSubmit, isDisabled, messageError }) {
+function FormAuth({ title, children, btnText, subtitle, onSubmit, isDisabled, message }) {
   const location = useLocation().pathname;
 
   return (
@@ -20,7 +20,7 @@ function FormAuth({ title, children, btnText, subtitle, onSubmit, isDisabled, me
         onSubmit={onSubmit}
       >{children}
         <div className="form-auth__bottom">
-          <span className="form-auth__error">{messageError}</span>
+          <span className="form-auth__error">{message}</span>
           <button
             className={`form-auth__button ${isDisabled ? "form-auth__button_disabled" : ''}`}
             disabled={isDisabled}

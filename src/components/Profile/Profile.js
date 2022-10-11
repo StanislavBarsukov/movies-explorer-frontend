@@ -4,10 +4,11 @@ import Header from '../Header/Header';
 import useFormWithValidation from '../../utils/hook/Validate';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ handleUpdateUser, handleLogout }) {
+function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
   const [ isDisabledForm, setDisabledForm ]= React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
   const { values, isValid, errors, handleChange, setValues, resetForm } = useFormWithValidation();
+
   const handleToggleButton = () => setDisabledForm(!isDisabledForm);
 
   React.useEffect(() => {
@@ -16,12 +17,20 @@ function Profile({ handleUpdateUser, handleLogout }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleUpdateUser ({
-      name: values.name,
-      email: values.email,
-    });
-    resetForm();
-    handleToggleButton()
+    if (isSuccess) {
+      handleUpdateUser ({
+        name: values.name,
+        email: values.email,
+      });
+      resetForm();
+      handleToggleButton()
+    } else {
+      handleUpdateUser ({
+        name: values.name,
+        email: values.email,
+      });
+      resetForm();
+    }
   };
 
   return (
@@ -75,13 +84,13 @@ function Profile({ handleUpdateUser, handleLogout }) {
             <div className="profile__buttons">
             <button
               className="profile__button-edit"
-              onClickCapture={handleToggleButton}
+              onClick={handleToggleButton}
               type="button"
             >Редактировать</button>
             <button
               className="profile__button-exit"
               type="submit"
-              onClickCapture={handleLogout}
+              onClick={handleLogout}
             >Выйти из аккаунта</button>
           </div>
           ):(
@@ -91,6 +100,7 @@ function Profile({ handleUpdateUser, handleLogout }) {
               disabled={!isValid}
             >Сохранить</button>
           )}
+          <span className="profile__error">{message}</span>
         </div>
       </form>
     </>

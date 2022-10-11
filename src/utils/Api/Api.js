@@ -9,21 +9,21 @@ class Api {
     return Promise.reject(res.status);
   }
 
-  getUser() {
+  getUser(token) {
     return fetch(`${this._url}/users/me`, {
       method:"GET",
       headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
       }
     }).then(this._checkResponse);
   }
 
-  updateUser(email, name) {
+  updateUser(email, name, token) {
     return fetch(`${this._url}/users/me`, {
       method:"PATCH",
       headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -33,10 +33,55 @@ class Api {
     }).then(this._checkResponse);
   }
 
+  getMoviesSave() {
+    return fetch(`${this._url}/movies`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+    })
+      .then(this._checkResponse);
+  }
+
+  saveMovie(movie, token) {
+    return fetch(`${this._url}/movies`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}` || "",
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.url}` || "",
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      })
+    })
+      .then(this._checkResponse)
+  }
+
+  deleteMovie(id, token) {
+    return fetch(`${this._url}/movies/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+    })
+      .then(this._checkResponse)
+  };
 }
 
 const api = new Api({
-  url: "http://localhost:3002",
+  url: "http://localhost:3004",
 });
 
 export default api;

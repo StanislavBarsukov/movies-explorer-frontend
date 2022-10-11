@@ -2,10 +2,21 @@ import React from 'react';
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ movie, trailer, image, nameRU, duration }) {
+function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave, moviesSave }) {
   const location = useLocation().pathname;
-  const [isLike, setLike] = React.useState(false);
-  const toggleButtonLike = () => setLike(!isLike);
+
+  const isSaved = moviesSave.movie.some((m) => m.movieId === movie.id)
+
+  const toggleButtonLike = () => {
+    if (isSaved) {
+      onDelete(moviesSave.filter((m) => m.movieId === movie.id)[0])
+    } else {
+      onSave(movie)
+    }
+  }
+  function handleDeleteMovie() {
+    onDelete(movie)
+  }
 
   const durationTime = (time) => {
     const hours = Math.trunc(time / 60);
@@ -35,7 +46,7 @@ function MoviesCard({ movie, trailer, image, nameRU, duration }) {
           <p className="movie__time">{durationTime(duration)}</p>
         </div>
         { location === "/movies" && (<button
-          className={`movie__button ${isLike ? "movie__button_active" : ""}`}
+          className={`movie__button ${isSaved ? "movie__button_active" : ""}`}
           type="button"
           onClick={toggleButtonLike}
         >
@@ -43,6 +54,7 @@ function MoviesCard({ movie, trailer, image, nameRU, duration }) {
         { location ==="/save-movies" &&(<button
           className=" movie__button movie__button_delete"
           type="button"
+          onClick={handleDeleteMovie}
         ></button>)}
       </div>
     </li>
