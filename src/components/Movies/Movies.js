@@ -5,12 +5,13 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import More from '../More/More';
+import Preloader from "../Preloader/Preloader";
 
-function Movies({ movies, onSearch, message, onSave, onDelete, moviesSave, onShort }) {
+function Movies({ moviesAll, onSearch, message, onSave, onDelete, moviesSave, onShort, loading }) {
 
   const [ amount, setAmount ] = React.useState(() => {
     const windowWidth = window.innerWidth;
-      if (windowWidth > 1020) {
+      if (windowWidth >= 1020) {
         return 12
       } else if (windowWidth >= 760) {
         return 8
@@ -19,31 +20,32 @@ function Movies({ movies, onSearch, message, onSave, onDelete, moviesSave, onSho
       }
   });
 
-  const [ moviesMore, setMoviesMore ] = React.useState(() => {
+  const [ count, setCount ] = React.useState(() => {
     const windowWidth = window.innerWidth;
-      if (windowWidth > 768) {
-        return 7
-      } else if (windowWidth < 450) {
-        return 5
-      }
+    if (windowWidth >= 1020) {
+      return 12
+    } else if (windowWidth >= 760) {
+      return 8
+    } else  {
+      return 5
+    }
   });
 
   const handleResize = () => {
     const windowWidth = window.innerWidth;
-      if (windowWidth > 1020) {
-          setAmount(12)
-          setMoviesMore(7)
+      if (windowWidth >= 1020) {
+          return setCount(12)
         } else if (windowWidth >= 760) {
-          setAmount(8)
-          setMoviesMore(7)
+          return setCount(8)
         } else  {
-          setAmount(5)
-          setMoviesMore(5)
+          return setCount(5)
         }
   }
-  const renderMovies = movies.slice(0, amount);
+
+  const renderMovies = moviesAll.slice(0, amount);
   const addMore = () => {
-    setAmount(more => more + moviesMore)
+    setAmount(m => m + count)
+    console.log(count)
   }
 
   React.useEffect(() => {
@@ -53,9 +55,20 @@ function Movies({ movies, onSearch, message, onSave, onDelete, moviesSave, onSho
   return (
     <main>
       <Header/>
-      <SearchForm message={message} onSearch={onSearch} onShort={onShort}/>
-      <MoviesCardList movies={renderMovies} onSave={onSave} onDelete={onDelete} moviesSave={moviesSave}/>
-      <More onClick={addMore} movies={movies} renderMovies={renderMovies}/>
+      <SearchForm message={message} onSearch={onSearch} onShort={onShort} />
+      { loading ? <Preloader/> :
+        <MoviesCardList
+        moviesAll={renderMovies}
+        onSave={onSave}
+        onDelete={onDelete}
+        moviesSave={moviesSave}
+        loading={loading}/>
+      }
+      { !loading && (
+        <More
+          onClick={addMore}
+          movies={moviesAll}
+          renderMovies={renderMovies}/>)}
       <Footer/>
     </main>
   );

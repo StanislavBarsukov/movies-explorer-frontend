@@ -8,29 +8,31 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
   const [ isDisabledForm, setDisabledForm ]= React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
   const { values, isValid, errors, handleChange, setValues, resetForm } = useFormWithValidation();
-
   const handleToggleButton = () => setDisabledForm(!isDisabledForm);
 
   React.useEffect(() => {
     setValues(currentUser);
   }, [currentUser, setValues]);
 
+  React.useEffect(() => {
+    if (isSuccess) {
+      handleToggleButton();
+    }
+  }, [isSuccess]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isSuccess) {
       handleUpdateUser ({
         name: values.name,
         email: values.email,
-      });
-      resetForm();
-      handleToggleButton()
-    } else {
-      handleUpdateUser ({
-        name: values.name,
-        email: values.email,
-      });
-      resetForm();
-    }
+      })
+        .then(()=> {
+          console.log(isSuccess)
+          if (isSuccess) {
+            handleToggleButton()
+          }
+        })
+      resetForm()
   };
 
   return (
@@ -56,7 +58,7 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
                 maxLength="30"
                 autoComplete="off"
                 onChange={handleChange}
-                defaultValue={currentUser.name}
+                value={values.name || ""}
                 disabled={!isDisabledForm}
               />
             </label>
@@ -74,7 +76,7 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
                 autoComplete="off"
                 pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
                 onChange={handleChange}
-                defaultValue={currentUser.email}
+                value={values.email || ""}
                 disabled={!isDisabledForm}
               />
             </label>

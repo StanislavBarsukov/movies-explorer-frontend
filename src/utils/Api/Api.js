@@ -9,7 +9,7 @@ class Api {
     return Promise.reject(res.status);
   }
 
-  getUser(token) {
+  getUser() {
     return fetch(`${this._url}/users/me`, {
       method:"GET",
       headers: {
@@ -19,7 +19,7 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  updateUser(email, name, token) {
+  updateUser(email, name) {
     return fetch(`${this._url}/users/me`, {
       method:"PATCH",
       headers: {
@@ -44,7 +44,7 @@ class Api {
       .then(this._checkResponse);
   }
 
-  saveMovie(movie, token) {
+  saveMovie(movie) {
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
@@ -68,7 +68,7 @@ class Api {
       .then(this._checkResponse)
   }
 
-  deleteMovie(id, token) {
+  deleteMovie(id) {
     return fetch(`${this._url}/movies/${id}`, {
       method: "DELETE",
       headers: {
