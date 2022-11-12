@@ -76,7 +76,7 @@
   border: none;
   padding: 6px 29px;
   border-radius: 48px;
-  background-color: rgba(52, 86, 243, 1);
+  background-color: rgba(43, 224, 128, 1);
   cursor: pointer;
   transition: opacity ease-in-out 0.5s;
 }
