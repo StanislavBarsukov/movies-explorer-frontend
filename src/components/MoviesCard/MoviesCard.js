@@ -4,8 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave, moviesSave }) {
   const location = useLocation().pathname;
-
-  const isSaved = moviesSave.movie.some((m) => m.movieId === movie.id)
+  const isSaved = moviesSave.some((m) => m.movieId === movie.id)
 
   const toggleButtonLike = () => {
     if (isSaved) {
@@ -14,9 +13,10 @@ function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave,
       onSave(movie)
     }
   }
-  function handleDeleteMovie() {
+
+  const deleteMovie = () => {
     onDelete(movie)
-  }
+  };
 
   const durationTime = (time) => {
     const hours = Math.trunc(time / 60);
@@ -54,7 +54,7 @@ function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave,
         { location ==="/save-movies" &&(<button
           className=" movie__button movie__button_delete"
           type="button"
-          onClick={handleDeleteMovie}
+          onClick={deleteMovie}
         ></button>)}
       </div>
     </li>
