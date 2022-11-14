@@ -70,7 +70,7 @@
   font-size: 12px;
   line-height: 15px;
   text-align: center;
-  background-color: rgba(52, 86, 243, 1);
+  background-color: rgba(43, 224, 128, 1);
   color: rgba(255, 255, 255, 1);
   border: none;
   border-radius: 3px;
@@ -112,7 +112,7 @@
 }
 
 .form-auth__link {
-  color: rgba(52, 86, 243, 1);
+  color: rgba(43, 224, 128, 1);
   text-decoration: none;
   font-weight: 400;
   font-size: 12px;

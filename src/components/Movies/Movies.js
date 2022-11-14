@@ -5,9 +5,16 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import More from '../More/More';
-import Preloader from "../Preloader/Preloader";
+import Preloader from '../Preloader/Preloader';
 
-function Movies({ moviesAll, onSearch, message, onSave, onDelete, moviesSave, onShort, loading }) {
+function Movies({
+ loading, checked, message,
+ onSave, moviesSave, moviesAll,
+ onSearch, onDelete, checkToggle }) {
+
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
 
   const [ amount, setAmount ] = React.useState(() => {
     const windowWidth = window.innerWidth;
@@ -40,29 +47,26 @@ function Movies({ moviesAll, onSearch, message, onSave, onDelete, moviesSave, on
         } else  {
           return setCount(5)
         }
-  }
+  };
 
   const renderMovies = moviesAll.slice(0, amount);
+
   const addMore = () => {
     setAmount(m => m + count)
-    console.log(count)
   }
-
-  React.useEffect(() => {
-    window.addEventListener('resize', handleResize);
-  }, []);
 
   return (
     <main>
       <Header/>
-      <SearchForm message={message} onSearch={onSearch} onShort={onShort} />
+      <SearchForm message={message} checked={checked} onSearch={onSearch} checkToggle={checkToggle}/>
       { loading ? <Preloader/> :
         <MoviesCardList
-        moviesAll={renderMovies}
-        onSave={onSave}
-        onDelete={onDelete}
-        moviesSave={moviesSave}
-        loading={loading}/>
+          onSave={onSave}
+          loading={loading}
+          onDelete={onDelete}
+          moviesSave={moviesSave}
+          moviesAll={ checked ? moviesAll : renderMovies}
+        />
       }
       { !loading && (
         <More

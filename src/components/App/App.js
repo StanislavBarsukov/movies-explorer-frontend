@@ -13,6 +13,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import apiMovies from '../../utils/ApiMovies/ApiMovies';
 import api from "../../utils/Api/Api";
+import Preloader from "../Preloader/Preloader";
 
 
 function App() {
@@ -22,11 +23,14 @@ function App() {
   const [ loggedIn, setLoggedIn ] = React.useState(false);
   const [ isSuccess, setIsSuccess ] = React.useState(false);
   const [ isLoading, setIsLoading ] = React.useState(false);
+  const [ checked, setChecked ] = React.useState(false);
+  const [ checkedSave, setCheckedSave ] = React.useState(false);
 
   const [ currentUser, setCurrentUser ] = React.useState({});
   const [ movies, setMovies ] = React.useState([]);
   const [ moviesSave, setMoviesSave ] = React.useState([]);
   const [ moviesSearch, setMoviesSearch] = React.useState([]);
+  const [ moviesSaveShort, setMoviesSaveShort ] = React.useState([]);
 
   const [ messageErrorLogin, setMessageErrorLogin ] = React.useState('');
   const [ messageErrorRegister, setMessageErrorRegister ] = React.useState('');
@@ -39,10 +43,13 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if (localStorage.getItem('search')) {
-      handleMovie(JSON.parse(localStorage.getItem('search')))
-    }
-  }, []);
+    const checkbox = localStorage.getItem('checkbox');
+    setChecked(checkbox === 'true')
+      if (localStorage.getItem('search')) {
+        handleMovie(JSON.parse(localStorage.getItem('search')));
+      }
+
+  }, [checked]);
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
@@ -59,12 +66,14 @@ function App() {
 
   React.useEffect(() => {
     const moviesSaves = localStorage.getItem('moviesSave');
-    if (location.pathname === '/save-movies') {
         if (!moviesSaves?.movie) {
           api.getMoviesSave()
             .then((data) => {
               localStorage.setItem('moviesSave', JSON.stringify(data));
               setMoviesSave(data.movie.reverse());
+              if (checkedSave) {
+                setMoviesSaveShort(handleShortMovie(data.movie))
+              }
             })
             .catch((err) => {
               console.log(`Ошибка: ${err}`);
@@ -72,20 +81,18 @@ function App() {
         } else {
           setMoviesSave(JSON.parse(moviesSaves));
         }
-      }
-  }, [location]);
+  }, [location, checkedSave]);
 
-  const handleFoundMoviesSave = (name) => {
-      const movieResultSave = moviesSave.filter((m) => {
-        return m.nameRU.toLowerCase().includes(name.toLowerCase()) ||
-          m.nameEN.toLowerCase().includes(name.toLowerCase())
-      })
-      if (movieResultSave.length === 0 && name) {
-        setMessageErrorSearchSave('К сожалению ничего не найдено');
-        setMoviesSave([]);
-      } else {
-        setMoviesSave(movieResultSave);
-      }
+  const handleTokenCheck = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      auth.getContent(token)
+        .then(() => {
+          setLoggedIn(true);
+          navigate(location.pathname);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const handleRegister = (email, password, name) => {
@@ -94,13 +101,13 @@ function App() {
       .then((res) => {
         if(res.user) {
           handleLogin(email, password);
-          setMessageErrorRegister(' Вы успешно прошли регестрацию !')
+          setMessageErrorRegister(' Вы успешно прошли регестрацию !');
           navigate('/movies');
           setTimeout(() => {
             cleanError()
           }, 2000);
         }
-        setIsSuccess(true)
+        setIsSuccess(true);
       })
       .catch((err) => {
         if(err === 400) {
@@ -111,7 +118,7 @@ function App() {
           setMessageErrorRegister('На сервере произошла ошибка');
         }
         console.log(`Некорректно заполнено одно из полей ${err}`);
-        setIsSuccess(false)
+        setIsSuccess(false);
       })
   };
 
@@ -132,27 +139,15 @@ function App() {
       })
   };
 
-  const handleTokenCheck = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      auth.getContent(token)
-        .then(() => {
-          setLoggedIn(true);
-          navigate(location.pathname)
-        })
-        .catch((err) => console.log(err));
-    }
-  };
-
   const handleUpdateUser = ({ email, name }) => {
      return api.updateUser(email, name)
       .then((res) => {
         setCurrentUser(res.user);
-        setMessageErrorProfile('Вы успешно изменили данные !')
+        setMessageErrorProfile('Вы успешно изменили данные !');
         setTimeout(() => {
           cleanError()
         }, 2000);
-        setIsSuccess(true)
+        setIsSuccess(true);
       })
       .catch((err) => {
         if(err === 400) {
@@ -162,12 +157,37 @@ function App() {
         } else if (err === 500) {
           setMessageErrorProfile('На сервере произошла ошибка');
         }
-        console.log(`Некорректно заполнено одно из полей ${err}`)
-        setIsSuccess(false)
+        console.log(`Некорректно заполнено одно из полей ${err}`);
+        setIsSuccess(false);
       })
   };
 
-  const  handleSaveMovie = (movie) => {
+  const handleMovie = (name) => {
+    const movie = localStorage.getItem('movies');
+    if (!movie) {
+      setIsLoading(true);
+      apiMovies.getMovies()
+        .then((data) => {
+          setIsLoading(false);
+          localStorage.setItem('movies', JSON.stringify(data));
+          setMovies(data);
+          handleFoundMovies(name, data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+          setMessageErrorSearch('Что-то пошло не так. Попробуйте ввести другое название или попробуйте позже');
+          setIsLoading(false);
+          setTimeout(() => {
+            cleanError()
+          }, 2000);
+        });
+    } else {
+      setMovies(JSON.parse(movie));
+      handleFoundMovies(name, JSON.parse(movie));
+    }
+  };
+
+  const handleSaveMovie = (movie) => {
       api.saveMovie(movie)
         .then((res)=> {
           const newMovieSave = [res.movie, ...moviesSave]
@@ -191,38 +211,12 @@ function App() {
       })
   };
 
-  const handleMovie = (name) => {
-    const movie = localStorage.getItem('movies');
-    if (!movie) {
-      setIsLoading(true);
-      apiMovies.getMovies()
-        .then((data) => {
-          setIsLoading(false);
-          localStorage.setItem('movies', JSON.stringify(data));
-          setMovies(data);
-          handleFoundMovies(name, data)
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-          setMessageErrorSearch('Что-то пошло не так. Попробуйте ввести другое название или попробуйте позже');
-          setIsLoading(false);
-          setTimeout(() => {
-            cleanError()
-          }, 2000);
-        });
-    } else {
-      setMovies(JSON.parse(movie));
-      handleFoundMovies(name, JSON.parse(movie))
-    }
-  };
-
   const handleFoundMovies = (name, moviesSearch) => {
     if( null !== name ) {
-      console.log(moviesSearch)
-      const movieResult = moviesSearch.filter((m) => {
+      let movieResult = moviesSearch.filter((m) => {
         return m.nameRU.toLowerCase().includes(name.toLowerCase()) ||
           m.nameEN.toLowerCase().includes(name.toLowerCase())
-      })
+      });
       if (movieResult.length === 0 && name) {
         setMessageErrorSearch('К сожалению ничего не найдено');
         setMoviesSearch([]);
@@ -232,9 +226,30 @@ function App() {
       } else {
         setMoviesSearch(movieResult);
         cleanError();
+        if (checked) {
+          setMoviesSearch(handleShortMovie(movieResult));
+        }
       }
     }
-  }
+  };
+
+  const handleFoundMoviesSave = (name) => {
+    const movieResultSave = moviesSave.filter((m) => {
+      return m.nameRU.toLowerCase().includes(name.toLowerCase()) ||
+        m.nameEN.toLowerCase().includes(name.toLowerCase())
+    })
+    if (movieResultSave.length === 0 && name) {
+      setMessageErrorSearchSave('К сожалению ничего не найдено');
+      setMoviesSave([]);
+      setTimeout(() => {
+        cleanError()
+      }, 2000);
+    } else {
+      setMoviesSave(movieResultSave);
+      cleanError();
+    }
+  };
+
 
   const cleanError = () => {
     setMessageErrorLogin('');
@@ -253,58 +268,79 @@ function App() {
     cleanError();
     navigate('/');
   };
-  const sortMovies = (movies)=> {
-    movies.filter((m) => m.duration <= 40);
+
+  const handleShortMovie = (movies) => {
+    return movies.filter((m)=> m.duration <= 40);
+  }
+
+  const checkToggle = () => {
+    if (location.pathname === '/movies') {
+      localStorage.setItem('checkbox', !checked);
+      setChecked(!checked);
+    }
+    if (location.pathname === '/save-movies') {
+      setCheckedSave(!checkedSave);
+    }
   };
 
+  console.log(checked)
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
           <Route path="/sign-up" element={
-            <Register handleRegister={handleRegister} message={messageErrorRegister} loggedIn={!loggedIn}/>
+            <Register handleRegister={handleRegister} message={messageErrorRegister}/>
           }/>
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} message={messageErrorLogin} loggedIn={!loggedIn}/>
+          <Route path="/sign-in" element={
+            <Login loggedIn={loggedIn} handleLogin={handleLogin} message={messageErrorLogin}/>
           }/>
           <Route path="/" element={
             <Main loggedIn={loggedIn}/>
           }/>
           <Route path="*" element={<NotFound/>}/>
           <Route path="/profile" element={
+            !loggedIn ? <Preloader/> :
             <ProtectedRoute loggedIn={loggedIn}>
               <Profile
-                message={messageErrorProfile}
-                handleUpdateUser={handleUpdateUser}
-                handleLogout={handleLogout}
                 isSuccess={isSuccess}
+                message={messageErrorProfile}
+                handleLogout={handleLogout}
+                handleUpdateUser={handleUpdateUser}
               />
             </ProtectedRoute>
           }
           />
           <Route path="/movies" element={
+            !loggedIn ? <Preloader/> :
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies
                 loading={isLoading}
+                checked={checked}
+                moviesSave={moviesSave}
                 moviesAll={moviesSearch}
                 message={messageErrorSearch}
-                onSearch={handleMovie}
                 onSave={handleSaveMovie}
-                moviesSave={moviesSave}
+                onSearch={handleMovie}
                 onDelete={handleDeleteMovie}
-                onShort={sortMovies}
+                checkToggle={checkToggle}
+                handleShortMovie={handleShortMovie}
               />
             </ProtectedRoute>
           }
           />
           <Route path="/save-movies" element={
+            !loggedIn ? <Preloader/> :
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
+                checkedSave={checkedSave}
                 movies={moviesSave}
                 moviesSave={moviesSave}
+                moviesSaveShort={moviesSaveShort}
                 message={messageErrorSearchSave}
-                onSearchSave={handleFoundMoviesSave}
+                checkToggle={checkToggle}
                 onSave={handleSaveMovie}
                 onDelete={handleDeleteMovie}
+                onSearchSave={handleFoundMoviesSave}
               />
             </ProtectedRoute>
           }

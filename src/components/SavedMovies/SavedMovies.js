@@ -6,16 +6,26 @@ import SearchForm from '../SearchForm/SearchForm';
 import CleanBlock from '../CleanBlock/CleanBlock';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ movies, moviesSave, onDelete, onSearchSave, message }) {
-  const filter = () => {
+function SavedMovies({
+  movies, checkedSave, message,
+  moviesSave, onDelete, checkToggle,
+  onSearchSave, moviesSaveShort }) {
 
-  }
-
+  console.log(moviesSaveShort)
   return (
     <main>
       <Header/>
-      <SearchForm onSearchSave={onSearchSave} message={message}/>
-      <MoviesCardList movies={movies} moviesSave={moviesSave} onDelete={onDelete}/>
+      <SearchForm
+        message={message}
+        checkedSave={checkedSave}
+        checkToggle={checkToggle}
+        onSearchSave={onSearchSave}
+        />
+      <MoviesCardList
+        onDelete={onDelete}
+        moviesSave={moviesSave}
+        movies={checkedSave ? moviesSaveShort : movies}
+      />
       <CleanBlock/>
       <Footer/>
     </main>
