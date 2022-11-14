@@ -290,9 +290,11 @@ function App() {
       <div className="page">
         <Routes>
           <Route path="/sign-up" element={
-            <Register handleRegister={handleRegister} message={messageErrorRegister}/>
+            loggedIn ? <ProtectedRoute/> :
+            <Register loggedIn={loggedIn} handleRegister={handleRegister} message={messageErrorRegister}/>
           }/>
           <Route path="/sign-in" element={
+            loggedIn ? <ProtectedRoute/> :
             <Login loggedIn={loggedIn} handleLogin={handleLogin} message={messageErrorLogin}/>
           }/>
           <Route path="/" element={
@@ -300,7 +302,6 @@ function App() {
           }/>
           <Route path="*" element={<NotFound/>}/>
           <Route path="/profile" element={
-            !loggedIn ? <Preloader/> :
             <ProtectedRoute loggedIn={loggedIn}>
               <Profile
                 isSuccess={isSuccess}
@@ -312,7 +313,6 @@ function App() {
           }
           />
           <Route path="/movies" element={
-            !loggedIn ? <Preloader/> :
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies
                 loading={isLoading}
@@ -330,7 +330,6 @@ function App() {
           }
           />
           <Route path="/save-movies" element={
-            !loggedIn ? <Preloader/> :
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
                 checkedSave={checkedSave}
