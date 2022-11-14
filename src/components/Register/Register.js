@@ -44,7 +44,6 @@ function Register({ handleRegister, message }) {
           required
           minLength="2"
           maxLength="30"
-          autoComplete="off"
           pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
           onChange={validation.handleChange}
         />
@@ -54,12 +53,12 @@ function Register({ handleRegister, message }) {
           className="register__input"
           id="password"
           name="password"
-          type="password"
+          type="new-password"
           placeholder="Пароль"
           minLength="8"
           maxLength="30"
-          required
           autoComplete="off"
+          required
           onChange={validation.handleChange}
         />
         <span className="register__error">{validation.errors.password}</span>

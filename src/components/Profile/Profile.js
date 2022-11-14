@@ -14,12 +14,6 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
     setValues(currentUser);
   }, [currentUser, setValues]);
 
-  React.useEffect(() => {
-    if (isSuccess) {
-      handleToggleButton();
-    }
-  }, [isSuccess]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
       handleUpdateUser ({
@@ -27,7 +21,6 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
         email: values.email,
       })
         .then(()=> {
-          console.log(isSuccess)
           if (isSuccess) {
             handleToggleButton()
           }

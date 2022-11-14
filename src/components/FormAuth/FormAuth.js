@@ -22,7 +22,7 @@ function FormAuth({ title, children, btnText, subtitle, onSubmit, isDisabled, me
         <div className="form-auth__bottom">
           <span className="form-auth__error">{message}</span>
           <button
-            className={`form-auth__button ${isDisabled ? "form-auth__button_disabled" : ''}`}
+            className={`form-auth__button ${isDisabled ? "form-auth__button_disabled" : ""}`}
             disabled={isDisabled}
           >{btnText}</button>
           <p className="form-auth__subtitle">

@@ -40,11 +40,12 @@ function Login({ handleLogin, message }) {
         className="login__input"
         id="password"
         name="password"
-        type="password"
+        type="new-password"
         placeholder="Пароль"
         minLength="8"
         maxLength="30"
         required
+        autoComplete="off"
         onChange={validation.handleChange}
         />
         <span className="login__error">{validation.errors.password}</span>

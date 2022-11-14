@@ -4,15 +4,15 @@ import { useLocation } from 'react-router-dom';
 
 function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave, moviesSave }) {
   const location = useLocation().pathname;
-  const isSaved = moviesSave.some((m) => m.movieId === movie.id)
+  const isSaved = moviesSave.some((m) => m.movieId === movie.id);
 
   const toggleButtonLike = () => {
     if (isSaved) {
-      onDelete(moviesSave.filter((m) => m.movieId === movie.id)[0])
+      onDelete(moviesSave.filter((m) => m.movieId === movie.id)[0]);
     } else {
       onSave(movie)
     }
-  }
+  };
 
   const deleteMovie = () => {
     onDelete(movie)

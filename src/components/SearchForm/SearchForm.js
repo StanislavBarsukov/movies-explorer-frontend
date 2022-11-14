@@ -3,6 +3,7 @@ import './SearchForm.css';
 import Search from '../../images/search.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
+import  { Text_Error } from  '../../utils/const/const';
 
 function SearchForm({ onSearch, onSearchSave, message, checked, checkedSave, checkToggle }) {
   const location = useLocation();
@@ -24,30 +25,36 @@ function SearchForm({ onSearch, onSearchSave, message, checked, checkedSave, che
     const { value } = e.target
     setSearch(value)
 
-  }
+  };
 
   const  handleInputSaveMovies = (e) => {
     e.preventDefault()
     const { value } = e.target
     setSearchSave(value)
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (location.pathname === '/movies') {
       if(!search?.length) {
-        return setMessageError('Нужно ввести ключевое слово')
+        setMessageError(Text_Error.Search_empty)
+        setTimeout(() => {
+          setMessageError('')
+        }, 2000);
       } else {
         onSearch(search)
       }
     } else if (location.pathname === '/save-movies') {
       if(!searchSave?.length) {
-        return setMessageError('Нужно ввести ключевое слово')
+        setMessageError(Text_Error.Search_empty)
+        setTimeout(() => {
+          setMessageError('')
+        }, 2000);
       } else {
         onSearchSave(searchSave)
       }
     }
-  }
+  };
 
   return (
     <section className="search">
@@ -77,14 +84,14 @@ function SearchForm({ onSearch, onSearchSave, message, checked, checkedSave, che
         />
         )}
         <button
-            className="search__button"
-            type="submit"
-            onClick={handleSubmit}
+          className="search__button"
+          type="submit"
+          onClick={handleSubmit}
           >
-            <img src={Search} alt="Значек в виде лупы" className="search__img"/>
+           <img src={Search} alt="Значек в виде лупы" className="search__img"/>
           </button>
       </form>
-      <span className="search__error">{ !search && !searchSave ? message || messageError : "" }</span>
+      <span className="search__error">{message || messageError }</span>
       <FilterCheckbox checked={checked} checkedSave={checkedSave} checkToggle={checkToggle}/>
     </section>
   );

@@ -1,5 +1,9 @@
-import React from "react";
-import {Routes, Route, useNavigate, useLocation} from 'react-router-dom';
+import React from 'react';
+import apiMovies from '../../utils/ApiMovies/ApiMovies';
+import api from '../../utils/Api/Api';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import  { Text_Error } from  '../../utils/const/const';
 import * as auth from '../../utils/Auth/Auth';
 import './App.css';
 import Main from '../Landing/Main/Main';
@@ -10,10 +14,7 @@ import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
-import apiMovies from '../../utils/ApiMovies/ApiMovies';
-import api from "../../utils/Api/Api";
-import Preloader from "../Preloader/Preloader";
+import Preloader from '../Preloader/Preloader';
 
 
 function App() {
@@ -91,7 +92,9 @@ function App() {
           setLoggedIn(true);
           navigate(location.pathname);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        })
     }
   };
 
@@ -101,7 +104,7 @@ function App() {
       .then((res) => {
         if(res.user) {
           handleLogin(email, password);
-          setMessageErrorRegister(' Вы успешно прошли регестрацию !');
+          setMessageErrorRegister(Text_Error.SuccessReg);
           navigate('/movies');
           setTimeout(() => {
             cleanError()
@@ -111,11 +114,11 @@ function App() {
       })
       .catch((err) => {
         if(err === 400) {
-          setMessageErrorRegister('Введены невалидные данные');
+          setMessageErrorRegister(Text_Error.BadRequest);
         } else if (err === 409) {
-          setMessageErrorRegister('Такой E-mail уже зарегестрирован');
+          setMessageErrorRegister(Text_Error.Conflicting);
         } else if (err === 500) {
-          setMessageErrorRegister('На сервере произошла ошибка');
+          setMessageErrorRegister(Text_Error.ServerError);
         }
         console.log(`Некорректно заполнено одно из полей ${err}`);
         setIsSuccess(false);
@@ -131,9 +134,9 @@ function App() {
       })
       .catch((err) => {
         if(err === 400) {
-          setMessageErrorLogin('Введены невалидные данные');
+          setMessageErrorLogin(Text_Error.BadRequest);
         } else if (err === 401) {
-          setMessageErrorLogin('Ошибка...Проверьте корректность Пароля или E-mail');
+          setMessageErrorLogin(Text_Error.Unauthorized);
         }
         console.log(`Некорректно заполнено одно из полей ${err}`);
       })
@@ -143,7 +146,7 @@ function App() {
      return api.updateUser(email, name)
       .then((res) => {
         setCurrentUser(res.user);
-        setMessageErrorProfile('Вы успешно изменили данные !');
+        setMessageErrorProfile(Text_Error.UpdateLog);
         setTimeout(() => {
           cleanError()
         }, 2000);
@@ -151,11 +154,11 @@ function App() {
       })
       .catch((err) => {
         if(err === 400) {
-          setMessageErrorProfile('Введены невалидные данные');
+          setMessageErrorProfile(Text_Error.BadRequest);
         } else if (err === 409) {
-          setMessageErrorProfile('Такой E-mail уже зарегестрирован');
+          setMessageErrorProfile(Text_Error.Unauthorized_Email);
         } else if (err === 500) {
-          setMessageErrorProfile('На сервере произошла ошибка');
+          setMessageErrorProfile(Text_Error.ServerError);
         }
         console.log(`Некорректно заполнено одно из полей ${err}`);
         setIsSuccess(false);
@@ -175,7 +178,7 @@ function App() {
         })
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
-          setMessageErrorSearch('Что-то пошло не так. Попробуйте ввести другое название или попробуйте позже');
+          setMessageErrorSearch(Text_Error.Search_Error);
           setIsLoading(false);
           setTimeout(() => {
             cleanError()
@@ -196,7 +199,7 @@ function App() {
           setMoviesSave(newMovieSave);
         })
         .catch((err)=>{
-          console.log(`Некорректно заполнено одно из полей ${err}`);
+          console.log(`Ошибка: ${err}`);
         })
   };
 
@@ -207,7 +210,7 @@ function App() {
         setMoviesSave(newMoviesList)
       })
       .catch((err) => {
-        console.log(err)
+        console.log(`Ошибка: ${err}`);
       })
   };
 
@@ -218,11 +221,11 @@ function App() {
           m.nameEN.toLowerCase().includes(name.toLowerCase())
       });
       if (movieResult.length === 0 && name) {
-        setMessageErrorSearch('К сожалению ничего не найдено');
+        setMessageErrorSearch(Text_Error.Search);
         setMoviesSearch([]);
         setTimeout(() => {
           cleanError()
-        }, 2000);
+        }, 3000);
       } else {
         setMoviesSearch(movieResult);
         cleanError();
@@ -239,17 +242,30 @@ function App() {
         m.nameEN.toLowerCase().includes(name.toLowerCase())
     })
     if (movieResultSave.length === 0 && name) {
-      setMessageErrorSearchSave('К сожалению ничего не найдено');
+      setMessageErrorSearchSave(Text_Error.Search);
       setMoviesSave([]);
       setTimeout(() => {
         cleanError()
-      }, 2000);
+      }, 3000);
     } else {
       setMoviesSave(movieResultSave);
       cleanError();
     }
   };
 
+  const handleShortMovie = (movies) => {
+    return movies.filter((m)=> m.duration <= 40);
+  };
+
+  const checkToggle = () => {
+    if (location.pathname === '/movies') {
+      localStorage.setItem('checkbox', !checked);
+      setChecked(!checked);
+    }
+    if (location.pathname === '/save-movies') {
+      setCheckedSave(!checkedSave);
+    }
+  };
 
   const cleanError = () => {
     setMessageErrorLogin('');
@@ -264,26 +280,11 @@ function App() {
     setLoggedIn(false);
     setMoviesSave([]);
     setMovies([]);
-    setMoviesSearch([])
-    cleanError();
+    setMoviesSearch([]);
     navigate('/');
+    cleanError();
   };
 
-  const handleShortMovie = (movies) => {
-    return movies.filter((m)=> m.duration <= 40);
-  }
-
-  const checkToggle = () => {
-    if (location.pathname === '/movies') {
-      localStorage.setItem('checkbox', !checked);
-      setChecked(!checked);
-    }
-    if (location.pathname === '/save-movies') {
-      setCheckedSave(!checkedSave);
-    }
-  };
-
-  console.log(checked)
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
