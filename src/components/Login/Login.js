@@ -31,7 +31,6 @@ function Login({ handleLogin, message }) {
         required
         minLength="2"
         maxLength="30"
-        autoComplete="off"
         pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
         onChange={validation.handleChange}
         />
@@ -46,7 +45,6 @@ function Login({ handleLogin, message }) {
         minLength="8"
         maxLength="30"
         required
-        autoComplete="off"
         onChange={validation.handleChange}
         />
         <span className="login__error">{validation.errors.password}</span>

@@ -4,7 +4,7 @@ import Search from '../../images/search.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({ onSearch, onSearchSave, message, onShort }) {
+function SearchForm({ onSearch, onSearchSave, message, checked, checkedSave, checkToggle }) {
   const location = useLocation();
   const [messageError, setMessageError] = React.useState('');
   const [searchSave, setSearchSave] = React.useState('');
@@ -52,7 +52,7 @@ function SearchForm({ onSearch, onSearchSave, message, onShort }) {
   return (
     <section className="search">
       <form className="search__form" noValidate onSubmit={handleSubmit}>
-        { location.pathname === '/movies' &&( <input
+        { location.pathname === "/movies" &&( <input
           className="search__input"
           placeholder="Введите название Фильма"
           value={search ?? ''}
@@ -64,7 +64,7 @@ function SearchForm({ onSearch, onSearchSave, message, onShort }) {
           onChange={handleInputMovies}
         />
         )}
-        { location.pathname === '/save-movies' &&(<input
+        { location.pathname === "/save-movies" &&(<input
           className="search__input"
           placeholder="Введите название Фильма"
           value={searchSave}
@@ -84,8 +84,8 @@ function SearchForm({ onSearch, onSearchSave, message, onShort }) {
             <img src={Search} alt="Значек в виде лупы" className="search__img"/>
           </button>
       </form>
-      <span className="search__error">{ !search && !searchSave ? message || messageError : '' }</span>
-      <FilterCheckbox onShort={onShort}/>
+      <span className="search__error">{ !search && !searchSave ? message || messageError : "" }</span>
+      <FilterCheckbox checked={checked} checkedSave={checkedSave} checkToggle={checkToggle}/>
     </section>
   );
 }
