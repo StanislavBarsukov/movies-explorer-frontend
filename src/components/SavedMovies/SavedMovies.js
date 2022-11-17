@@ -7,7 +7,7 @@ import CleanBlock from '../CleanBlock/CleanBlock';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies({
-  movies, checkedSave, message,
+  movies, checkedSave, messageSave,
   moviesSave, onDelete, checkToggle,
   onSearchSave, moviesSaveShort }) {
 
@@ -21,7 +21,7 @@ function SavedMovies({
         onSearchSave={onSearchSave}
         />
       <MoviesCardList
-        message={message}
+        messageSave={messageSave}
         onDelete={onDelete}
         moviesSave={moviesSave}
         movies={checkedSave ? moviesSaveShort : movies}

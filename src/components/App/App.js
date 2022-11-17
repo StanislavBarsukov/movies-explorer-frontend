@@ -250,6 +250,9 @@ function App() {
     if (movieResultSave.length === 0 && name) {
       setMessageErrorSearchSave(Text_Error.SearchSave);
       setMoviesSave([]);
+      setTimeout(() => {
+        cleanError()
+      }, 2000);
     } else {
       setMoviesSave(movieResultSave);
       cleanError();
@@ -338,7 +341,7 @@ function App() {
                 movies={moviesSave}
                 moviesSave={moviesSave}
                 moviesSaveShort={moviesSaveShort}
-                message={messageErrorSearchSave}
+                messageSave={messageErrorSearchSave}
                 checkToggle={checkToggle}
                 onSave={handleSaveMovie}
                 onDelete={handleDeleteMovie}
