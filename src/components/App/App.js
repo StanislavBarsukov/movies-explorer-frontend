@@ -95,6 +95,7 @@ function App() {
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
           setLoggedIn(false);
+          handleLogout();
         })
     }
     if (!token) {
