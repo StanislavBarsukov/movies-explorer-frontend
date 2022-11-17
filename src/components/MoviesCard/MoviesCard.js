@@ -1,6 +1,7 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
+import { TimeFilm } from  '../../utils/const/const';
 
 function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave, moviesSave }) {
   const location = useLocation().pathname;
@@ -19,13 +20,13 @@ function MoviesCard({ movie, trailer, image, nameRU, duration, onDelete, onSave,
   };
 
   const durationTime = (time) => {
-    const hours = Math.trunc(time / 60);
-    const min = time % 60;
-    if(time < 60) {
+    const hours = Math.trunc(time / TimeFilm.Hour);
+    const min = time % TimeFilm.Hour;
+    if(time < TimeFilm.Hour) {
       return `${min}м`
     }
     return `${hours}ч ${min}м`
-  }
+  };
 
   return (
     <li className="movie">

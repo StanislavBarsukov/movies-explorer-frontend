@@ -11,17 +11,17 @@ function SavedMovies({
   moviesSave, onDelete, checkToggle,
   onSearchSave, moviesSaveShort }) {
 
-  console.log(moviesSaveShort)
+  console.log(movies)
   return (
     <main>
       <Header/>
       <SearchForm
-        message={message}
         checkedSave={checkedSave}
         checkToggle={checkToggle}
         onSearchSave={onSearchSave}
         />
       <MoviesCardList
+        message={message}
         onDelete={onDelete}
         moviesSave={moviesSave}
         movies={checkedSave ? moviesSaveShort : movies}

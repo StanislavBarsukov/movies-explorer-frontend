@@ -6,6 +6,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import More from '../More/More';
 import Preloader from '../Preloader/Preloader';
+import { WindowsSize, AmountFilm } from '../../utils/const/const';
 
 function Movies({
  loading, checked, message,
@@ -14,38 +15,42 @@ function Movies({
 
   React.useEffect(() => {
     window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
   }, []);
 
   const [ amount, setAmount ] = React.useState(() => {
     const windowWidth = window.innerWidth;
-      if (windowWidth >= 1020) {
-        return 12
-      } else if (windowWidth >= 760) {
-        return 8
+    console.log(windowWidth)
+      if (windowWidth >= WindowsSize.MaxSize) {
+        return AmountFilm.L
+      } else if (windowWidth >= WindowsSize.MiddleSize) {
+        return AmountFilm.L
       } else  {
-        return 5
+        return AmountFilm.S
       }
   });
 
   const [ count, setCount ] = React.useState(() => {
     const windowWidth = window.innerWidth;
-    if (windowWidth >= 1020) {
-      return 12
-    } else if (windowWidth >= 760) {
-      return 8
+    if (windowWidth >= WindowsSize.MaxSize) {
+      return AmountFilm.L
+    } else if (windowWidth >= WindowsSize.MiddleSize) {
+      return AmountFilm.L
     } else  {
-      return 5
+      return AmountFilm.S
     }
   });
 
   const handleResize = () => {
     const windowWidth = window.innerWidth;
-      if (windowWidth >= 1020) {
-          return setCount(12)
-        } else if (windowWidth >= 760) {
-          return setCount(8)
+      if (windowWidth >= WindowsSize.MaxSize) {
+          return setCount(AmountFilm.L)
+        } else if (windowWidth >= WindowsSize.MiddleSize) {
+          return setCount(AmountFilm.L)
         } else  {
-          return setCount(5)
+          return setCount(AmountFilm.S)
         }
   };
 
@@ -53,14 +58,16 @@ function Movies({
 
   const addMore = () => {
     setAmount(m => m + count)
+    console.log(count)
   }
-
+  console.log(message)
   return (
     <main>
       <Header/>
       <SearchForm message={message} checked={checked} onSearch={onSearch} checkToggle={checkToggle}/>
       { loading ? <Preloader/> :
         <MoviesCardList
+          message={message}
           onSave={onSave}
           loading={loading}
           onDelete={onDelete}

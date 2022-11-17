@@ -6,13 +6,22 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
   const [ isDisabledForm, setDisabledForm ]= React.useState(false);
+  const [ buttons, setButtons ] = React.useState(false);
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, isValid, errors, handleChange, setValues, resetForm } = useFormWithValidation();
+  const { values, errors, handleChange, setValues, resetForm } = useFormWithValidation();
   const handleToggleButton = () => setDisabledForm(!isDisabledForm);
 
   React.useEffect(() => {
     setValues(currentUser);
   }, [currentUser, setValues]);
+
+  React.useEffect(() => {
+    if (values.name !== currentUser.name || values.email !== currentUser.email){
+      setButtons(true)
+    } else {
+      setButtons(false)
+    }
+  }, [values]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,8 +100,8 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
           ):(
             <button
               type="submit"
-              className={`profile__button-save ${!isValid ? "profile__button-save_disabled" : ''}`}
-              disabled={!isValid}
+              className={`profile__button-save ${!buttons ? "profile__button-save_disabled" : ''}`}
+              disabled={!buttons}
             >Сохранить</button>
           )}
           <span className="profile__error">{message}</span>

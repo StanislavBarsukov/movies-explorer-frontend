@@ -5,7 +5,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 import  { Text_Error } from  '../../utils/const/const';
 
-function SearchForm({ onSearch, onSearchSave, message, checked, checkedSave, checkToggle }) {
+function SearchForm({ onSearch, onSearchSave, checked, checkedSave, checkToggle }) {
   const location = useLocation();
   const [messageError, setMessageError] = React.useState('');
   const [searchSave, setSearchSave] = React.useState('');
@@ -91,7 +91,7 @@ function SearchForm({ onSearch, onSearchSave, message, checked, checkedSave, che
            <img src={Search} alt="Значек в виде лупы" className="search__img"/>
           </button>
       </form>
-      <span className="search__error">{message || messageError }</span>
+      <span className="search__error">{ messageError }</span>
       <FilterCheckbox checked={checked} checkedSave={checkedSave} checkToggle={checkToggle}/>
     </section>
   );

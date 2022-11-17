@@ -28,9 +28,9 @@ function Login({ handleLogin, message }) {
         name="email"
         type="email"
         placeholder="Email"
-        required
         minLength="2"
         maxLength="30"
+        required
         pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
         onChange={validation.handleChange}
         />
@@ -40,12 +40,11 @@ function Login({ handleLogin, message }) {
         className="login__input"
         id="password"
         name="password"
-        type="new-password"
+        type="password"
         placeholder="Пароль"
         minLength="8"
         maxLength="30"
         required
-        autoComplete="off"
         onChange={validation.handleChange}
         />
         <span className="login__error">{validation.errors.password}</span>
