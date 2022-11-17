@@ -11,7 +11,6 @@ function SavedMovies({
   moviesSave, onDelete, checkToggle,
   onSearchSave, moviesSaveShort }) {
 
-  console.log(movies)
   return (
     <main>
       <Header/>
