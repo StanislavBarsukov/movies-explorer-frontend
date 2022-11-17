@@ -52,6 +52,8 @@
 }
 
 .not-found__link {
+  border: none;
+  background-color: transparent;
   margin-top: 284px;
   font-weight: 400;
   font-size: 12px;
