@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 function MoviesCardList({ moviesAll, movies, onSave, onDelete, moviesSave, message, messageSave }) {
   const location = useLocation().pathname;
-  console.log(movies)
+
   return (
     <section className="movies">
       { message || messageSave ? ( <span className="movies__none">{message || messageSave}</span> ) :(
