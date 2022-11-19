@@ -25,6 +25,7 @@
   margin-bottom: 10px;
   width: 260px;
   cursor: pointer;
+  box-shadow: inset 20px 20px 0 23px rgba(249, 249, 249, 1);
 }
 .login__input:focus {
   background-color: rgba(249, 249, 249, .0);

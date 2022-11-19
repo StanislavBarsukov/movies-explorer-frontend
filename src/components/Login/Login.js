@@ -1,14 +1,25 @@
 import React from 'react';
 import './Login.css';
 import FormAuth from '../FormAuth/FormAuth';
+import useFormWithValidation from "../../utils/hook/Validate";
 
-function Login() {
+function Login({ handleLogin, message }) {
+  const validation = useFormWithValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(validation.values.email, validation.values.password);
+    validation.resetForm()
+  };
 
   return (
     <FormAuth
       title="Рады видеть!"
       btnText="Войти"
       subtitle="Ещё не зарегистрированы?"
+      onSubmit={handleSubmit}
+      isDisabled={!validation.isValid}
+      message={message}
     >
       <label className="login__label">Email</label>
       <input
@@ -17,9 +28,13 @@ function Login() {
         name="email"
         type="email"
         placeholder="Email"
-        required={true}
+        minLength="2"
+        maxLength="30"
+        required
+        pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
+        onChange={validation.handleChange}
         />
-      <span className="login__error">Что-то не так</span>
+      <span className="login__error">{validation.errors.email}</span>
       <label className="login__label">Пароль</label>
       <input
         className="login__input"
@@ -27,9 +42,12 @@ function Login() {
         name="password"
         type="password"
         placeholder="Пароль"
-        required={true}
+        minLength="8"
+        maxLength="30"
+        required
+        onChange={validation.handleChange}
         />
-        <span className="login__error">Что-то не так</span>
+        <span className="login__error">{validation.errors.password}</span>
     </FormAuth>
   );
 }

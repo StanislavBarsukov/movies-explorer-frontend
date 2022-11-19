@@ -77,14 +77,18 @@
   font-size: 11px;
   line-height: 13px;
   text-align: right;
-  border: none;
+  box-sizing: border-box;
   outline: none;
-  cursor: pointer;
+  border: none;
 }
 .profile__input:focus {
-  background-color: rgba(249, 249, 249, 1);
+  border: 1px solid rgba(43, 224, 128, 0.8);
+  background-color: rgba(43, 224, 128, 0.1);
   cursor: text;
-  border-radius: 10px;
+  border-radius: 4px;
+}
+.profile__input:disabled {
+  background-color: transparent;
 }
 
 .profile__error {
@@ -127,7 +131,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
-  color: rgba(255, 48, 85, 1);
+  color: rgba(0, 0, 0, 1);
   text-align: center;
   background-color: transparent;
   border: none;
@@ -138,13 +142,14 @@
 
 .profile__button-exit:hover {
   opacity: 0.7;
+  color: rgba(43, 224, 128, 1);
 }
 
 .profile__button-save {
   border: none;
   padding: 15px 0 15px;
   width: 260px;
-  background-color: rgba(52, 86, 243, 1);
+  background-color: rgba(43, 224, 128, 1);
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
@@ -164,4 +169,9 @@
 }
 .profile__button-save:hover {
   opacity: 0.8;
+}
+
+.profile__button-save_disabled {
+  background-color: rgba(248, 248, 248, 1);
+  color: rgba(194, 194, 194, 1);
 }

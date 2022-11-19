@@ -1,28 +1,42 @@
 import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import Cards from '../../utils/cards';
+import { useLocation } from 'react-router-dom';
 
-function MoviesCardList() {
-  const [ isMovies, setIsMovies] = React.useState([]);
-  const getMovies = () => setIsMovies(Cards);
-
-  React.useEffect(() => {
-    getMovies()
-  }, []);
+function MoviesCardList({ moviesAll, movies, onSave, onDelete, moviesSave, message, messageSave }) {
+  const location = useLocation().pathname;
 
   return (
     <section className="movies">
-      <ul className="movies__list">
-        {isMovies.map((movie, index) => (
-          <MoviesCard
-            key={index}
-            name={movie.name}
-            duration={movie.duration}
-            img={movie.img}
-          />
-          ))}
-      </ul>
+      { message || messageSave ? ( <span className="movies__none">{message || messageSave}</span> ) :(
+        <ul className="movies__list">
+          { location === '/movies' && (moviesAll.map((movie) => (
+              <MoviesCard
+                key={movie.id}
+                movie={movie}
+                nameRU={movie.nameRU}
+                duration={movie.duration}
+                image={`https://api.nomoreparties.co/${movie.image.url}`}
+                trailer={movie.trailerLink}
+                onSave={onSave}
+                onDelete={onDelete}
+                moviesSave={moviesSave}
+              />))
+          )}
+          { location === '/save-movies' && (movies.map((movie) => (
+              <MoviesCard
+                key={movie._id}
+                movie={movie}
+                nameRU={movie.nameRU}
+                duration={movie.duration}
+                image={movie.image}
+                trailer={movie.trailerLink}
+                onDelete={onDelete}
+                moviesSave={moviesSave}
+              />))
+          )}
+        </ul>
+      )}
     </section>
   );
 }
