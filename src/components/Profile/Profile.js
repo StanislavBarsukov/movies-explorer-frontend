@@ -104,6 +104,11 @@ function Profile({ handleUpdateUser, handleLogout, message, isSuccess }) {
               disabled={!buttons}
             >Сохранить</button>
           )}
+          <button
+            type="button"
+            className={`profile__button-back ${!isDisabledForm  ? "profile__button-back_disabled" : ''}`}
+            onClick={handleToggleButton}
+          >Назад</button>
           <span className="profile__error">{message}</span>
         </div>
       </form>
