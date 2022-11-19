@@ -66,6 +66,7 @@ function App() {
 
   React.useEffect(() => {
     if (loggedIn) {
+      setMessageErrorSearchSave('')
       const moviesSaves = localStorage.getItem('moviesSave');
       if (!moviesSaves?.movie) {
         api.getMoviesSave()
@@ -252,9 +253,6 @@ function App() {
     if (movieResultSave.length === 0 && name) {
       setMessageErrorSearchSave(Text_Error.SearchSave);
       setMoviesSave([]);
-      setTimeout(() => {
-        cleanError()
-      }, 2000);
     } else {
       setMoviesSave(movieResultSave);
       cleanError();
